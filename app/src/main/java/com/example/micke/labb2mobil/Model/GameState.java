@@ -37,6 +37,24 @@ public class GameState {
         //a marker has a neibour in either horiontal
         //or veritcal plane (horiz +1 -1, vertical +8-8)
         //return true else return false;
+        for(int i=0;i<gameBoard.length-1;i++){
+            if(gameBoard[i]==0) {
+                //horizontal check
+                if (isPossibleMove(gameBoard[i], gameBoard[i + 1])) {
+
+                }
+                if (isPossibleMove(gameBoard[i], gameBoard[i - 1])) {
+
+                }
+                //vertical check
+                if (isPossibleMove(gameBoard[i], gameBoard[i + 8])) {
+
+                }
+                if (isPossibleMove(gameBoard[i], gameBoard[i - 8])) {
+
+                }
+            }
+        }
         return false;
     }
 
