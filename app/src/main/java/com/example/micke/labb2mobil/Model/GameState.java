@@ -191,6 +191,10 @@ public class GameState {
 
     public boolean set(int position,boolean isWhiteMarker) {
         if (whitePlayersTurn) {
+            //Kollar att det är setting phase
+            if(whiteMarker<1){
+                return false;
+            }
             if (isWhiteMarker) {
                 if (gameBoard[position] == EMPTY_SPACE) {
                     gameBoard[position] = WHITE_MARKER;
@@ -203,6 +207,9 @@ public class GameState {
             }
         } else {
             if (!isWhiteMarker) {
+                if(blackMarker<1){
+                    return false;
+                }
                 if (gameBoard[position] == EMPTY_SPACE) {
                     gameBoard[position] = BLACK_MARKER;
                     whitePlayersTurn = true;
