@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import com.example.micke.labb2mobil.Activities.Buttons.LoadGameListener;
 import com.example.micke.labb2mobil.Activities.Buttons.NewGameListener;
-import com.example.micke.laboration2.R;
+import com.example.micke.labb2mobil.R;
 
 public class MainActivity extends AppCompatActivity {
 

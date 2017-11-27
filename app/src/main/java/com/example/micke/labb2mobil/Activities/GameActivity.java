@@ -3,7 +3,7 @@ package com.example.micke.labb2mobil.Activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.micke.laboration2.R;
+import com.example.micke.labb2mobil.R;
 
 public class GameActivity extends AppCompatActivity {
 
