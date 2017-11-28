@@ -13,8 +13,9 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(new GameView(this,null));
 
-        gameView= (GameView) findViewById(R.id.gameView);
+      //  gameView= (GameView) findViewById(R.id.gameView);
+
     }
 }

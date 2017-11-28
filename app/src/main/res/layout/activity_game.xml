@@ -6,11 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.example.micke.labb2mobil.Activities.GameActivity">
 
-    <com.example.micke.labb2mobil.GameView
+    <com.example.micke.labb2mobil.Activities.View.GameView
         android:id="@+id/gameView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerHorizontal="true"
+        
         android:layout_marginTop="17dp" />
+    
+    <ImageView
+        android:id="@+id/rectangle"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle"/>
+
+    <ImageView
+        android:id="@+id/circle"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle"/>
 
 </android.support.constraint.ConstraintLayout>

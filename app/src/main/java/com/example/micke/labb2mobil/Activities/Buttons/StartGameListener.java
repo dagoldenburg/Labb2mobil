@@ -1,7 +1,10 @@
 package com.example.micke.labb2mobil.Activities.Buttons;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
+import com.example.micke.labb2mobil.Activities.GameActivity;
 import com.example.micke.labb2mobil.Model.GameState;
 
 /**
@@ -11,13 +14,17 @@ import com.example.micke.labb2mobil.Model.GameState;
 public class StartGameListener implements View.OnClickListener{
 
     private int gameSize;
+    private Context context;
 
-    public StartGameListener(int gameSize){
+    public StartGameListener(int gameSize,Context context){
         this.gameSize = gameSize;
+        this.context = context;
     }
 
     @Override
     public void onClick(View v) {
         GameState.startNewGame(gameSize);
+        Intent intent = new Intent(context, GameActivity.class);
+        context.startActivity(intent);
     }
 }
