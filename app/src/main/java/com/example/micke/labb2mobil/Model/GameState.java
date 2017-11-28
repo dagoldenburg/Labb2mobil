@@ -20,7 +20,7 @@ public class GameState {
 
     private int[] gameBoard;
     private boolean whitePlayersTurn;
-    private int whiteMarker,blackMarker,whiteMarkersOnBoard,blackMarkersOnBoard;
+    private int whiteMarker,blackMarker,whiteMarkersOnBoard,blackMarkersOnBoard,gameSize;
 
     public static final int EMPTY_SPACE = 0;
     public static final int WHITE_MARKER = 1;
@@ -29,7 +29,7 @@ public class GameState {
     private static GameState gameState;
 
     private GameState(int gameSize) {
-        EmptySpace.setEmptySpaces(new ArrayList<EmptySpace>());
+        this.gameSize=gameSize;
         whitePlayersTurn = true;
         whiteMarker = 3*gameSize;
         blackMarker = 3*gameSize;
@@ -259,5 +259,13 @@ public class GameState {
 
     public void setGameBoard(int[] gameBoard) {
         this.gameBoard = gameBoard;
+    }
+
+    public int getGameSize() {
+        return gameSize;
+    }
+
+    public void setGameSize(int gameSize) {
+        this.gameSize = gameSize;
     }
 }

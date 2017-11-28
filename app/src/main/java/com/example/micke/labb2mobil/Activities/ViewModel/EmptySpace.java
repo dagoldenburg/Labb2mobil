@@ -1,8 +1,9 @@
-package com.example.micke.labb2mobil.Model;
+package com.example.micke.labb2mobil.Activities.ViewModel;
 
 import android.app.Activity;
 import android.widget.ImageView;
 
+import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Created by Micke on 11/28/2017.
  */
 
-public class EmptySpace {
+public class EmptySpace extends GameObject {
     private static int[] emptyMarkerIds = {
             R.id.eMarker0,R.id.eMarker1,
             R.id.eMarker2,R.id.eMarker3,
@@ -27,27 +28,15 @@ public class EmptySpace {
             R.id.eMarker22,R.id.eMarker23,
     };
     private static ArrayList<EmptySpace> emptySpaces = new ArrayList<>();
-    private ImageView img;
-    private int position;
 
     public EmptySpace(ImageView img, int position) {
-        this.img = img;
-        this.position = position;
+        super(img,position);
     }
 
     public static void createEmptySpaces(Activity act){
-        for(int i=0;i<GameState.getGameState().getGameBoard().length;i++){
+        for(int i = 0; i< GameState.getGameState().getGameBoard().length; i++){
             EmptySpace.getEmptySpaces().add(new EmptySpace((ImageView) act.findViewById(emptyMarkerIds[i]),i));
         }
-    }
-
-    public static int getPositionByViewId(int id){
-        for(EmptySpace es:emptySpaces){
-            if(es.getImg().getId()==id){
-                return es.position;
-            }
-        }
-        return -1;
     }
 
     public static ArrayList<EmptySpace> getEmptySpaces() {
@@ -56,21 +45,5 @@ public class EmptySpace {
 
     public static void setEmptySpaces(ArrayList<EmptySpace> emptySpaces) {
         EmptySpace.emptySpaces = emptySpaces;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public ImageView getImg() {
-        return img;
-    }
-
-    public void setImg(ImageView img) {
-        this.img = img;
     }
 }
