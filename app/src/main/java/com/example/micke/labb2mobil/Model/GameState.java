@@ -24,6 +24,8 @@ public class GameState {
     public static final int WHITE_MARKER = 1;
     public static final int BLACK_MARKER = 2;
 
+    private static GameState gameState;
+
     private GameState(int gameSize) {
         whitePlayersTurn = true;
         whiteMarker = 3*gameSize;
@@ -31,6 +33,14 @@ public class GameState {
         gameBoard = new int[8*gameSize];
         whiteMarkersOnBoard=0;
         blackMarkersOnBoard=0;
+    }
+
+    public static GameState getGameState() {
+        return gameState;
+    }
+
+    public static void startNewGame(int gameSize){
+        gameState = new GameState(gameSize);
     }
 
     private boolean checkIfWin(){
