@@ -6,7 +6,6 @@ package com.example.micke.labb2mobil.Model;
 
 /*
  * The game board positions
- *
  * 16           17           18
  *     08       09       10
  *         00   01   02
@@ -19,47 +18,85 @@ public class GameState {
 
     private int[] gameBoard;
     private boolean whitePlayersTurn;
-    private int whiteMarker,blackMarker;
+    private int whiteMarker,blackMarker,whiteMarkersOnBoard,blackMarkersOnBoard;
 
     public static final int EMPTY_SPACE = 0;
     public static final int WHITE_MARKER = 1;
     public static final int BLACK_MARKER = 2;
+
+    private static GameState gameState;
 
     private GameState(int gameSize) {
         whitePlayersTurn = true;
         whiteMarker = 3*gameSize;
         blackMarker = 3*gameSize;
         gameBoard = new int[8*gameSize];
+        whiteMarkersOnBoard=0;
+        blackMarkersOnBoard=0;
     }
 
-    private boolean areThreeOnRow(){
+    public static GameState getGameState() {
+        return gameState;
+    }
+
+    public static void startNewGame(int gameSize){
+        gameState = new GameState(gameSize);
+    }
+
+    private boolean checkIfWin(){
+        if(isWhitePlayersTurn()){
+            if(blackMarker==0&&blackMarkersOnBoard<3)
+                return true;
+        }else{
+            if(whiteMarker==0&&whiteMarkersOnBoard<3)
+                return true;
+        }
+        return false;
+    }
+
+    private boolean areThreeOnRow() {
         //if where gameboard has white marker
         //a marker has a neibour in either horiontal
         //or veritcal plane (horiz +1 -1, vertical +8-8)
         //return true else return false;
-        for(int i=0;i<gameBoard.length-1;i++){
-            if(gameBoard[i]==0) {
-                //horizontal check
-                if (isPossibleMove(gameBoard[i], gameBoard[i + 1])) {
 
+        //TODO: Gör så den inte låter samma rad vara giltig flera gånger
+        for (int i = 0; i < gameBoard.length - 1; i++) {
+            if (isWhitePlayersTurn()) {
+                if (gameBoard[i] == WHITE_MARKER) {
+                    if (markerCheck(i)) {
+                        return true;
+                    }
                 }
-                if (isPossibleMove(gameBoard[i], gameBoard[i - 1])) {
-
-                }
-                //vertical check
-                if (isPossibleMove(gameBoard[i], gameBoard[i + 8])) {
-
-                }
-                if (isPossibleMove(gameBoard[i], gameBoard[i - 8])) {
-
+            } else {
+                if (gameBoard[i] == BLACK_MARKER) {
+                    if (markerCheck(i)) {
+                        return true;
+                    }
                 }
             }
         }
         return false;
     }
 
-    private boolean isPossibleMove(int from, int to){
-        if(gameBoard[to]!=0)
+    private boolean markerCheck(int i){
+        //horizontal check
+        if (isPossibleMove(i, i + 1,true)) {
+            if (isPossibleMove(i, i - 1,true)) {
+                return true;
+            }
+        }
+        //vertical check
+        if (isPossibleMove(i, i + 8,true)) {
+            if (isPossibleMove(i, i - 8,true)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isPossibleMove(int from, int to,boolean ignoreIfMarker){
+        if (gameBoard[to] != 0 && !ignoreIfMarker)
             return false;
         switch(from)
         {
@@ -115,10 +152,13 @@ public class GameState {
     return false;
 }
     public boolean move(int to, int from, boolean isWhiteMarker){
-        if(!isPossibleMove(to,from)){
-            return false;
-        }
         if(isWhitePlayersTurn()){
+            //kollar om det är legal move så länge man inte är i flying phase och att man har rätt
+            //att flytta pjäser
+            if(!isPossibleMove(to,from,false)
+                    && whiteMarkersOnBoard > 3 && whiteMarker==0){
+                return false;
+            }
             if(isWhiteMarker) {
                 if(gameBoard[to]==EMPTY_SPACE &&
                         gameBoard[from]==WHITE_MARKER){
@@ -128,6 +168,10 @@ public class GameState {
                 }
             }
         }else{
+            if(!isPossibleMove(to,from,false)
+                    && blackMarkersOnBoard > 3 && blackMarker==0){
+                return false;
+            }
             if(!isWhiteMarker) {
                 if (gameBoard[to] == EMPTY_SPACE &&
                         gameBoard[from] == BLACK_MARKER) {
@@ -140,38 +184,47 @@ public class GameState {
         return true;
     }
 
-    public boolean remove(int position,boolean whiteRemove){
+    public boolean remove(int position){
         if(!areThreeOnRow()){
             return false;
         }
-        if(isWhitePlayersTurn()){
-            if(!whiteRemove)
-            gameBoard[position]=EMPTY_SPACE;
+        if(isWhitePlayersTurn()) {
+            gameBoard[position] = EMPTY_SPACE;
+            blackMarkersOnBoard -= 1;
             return true;
         }else{
-            if(whiteRemove){
-                gameBoard[position]=EMPTY_SPACE;
-                return true;
-            }
+            gameBoard[position]=EMPTY_SPACE;
+            whiteMarkersOnBoard-=1;
+            return true;
         }
-        return false;
     }
 
     public boolean set(int position,boolean isWhiteMarker) {
         if (whitePlayersTurn) {
+            //Kollar att det är setting phase
+            if(whiteMarker<1){
+                return false;
+            }
             if (isWhiteMarker) {
                 if (gameBoard[position] == EMPTY_SPACE) {
                     gameBoard[position] = WHITE_MARKER;
                     whitePlayersTurn = false;
+                    whiteMarker -= 1;
+                    whiteMarkersOnBoard+=1;
                 } else {
                     return false;
                 }
             }
         } else {
             if (!isWhiteMarker) {
+                if(blackMarker<1){
+                    return false;
+                }
                 if (gameBoard[position] == EMPTY_SPACE) {
                     gameBoard[position] = BLACK_MARKER;
-                    whitePlayersTurn = false;
+                    whitePlayersTurn = true;
+                    blackMarker -= 1;
+                    blackMarkersOnBoard+=1;
                 } else {
                     return false;
                 }
