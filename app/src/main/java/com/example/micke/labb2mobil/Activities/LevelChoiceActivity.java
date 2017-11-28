@@ -20,7 +20,6 @@ public class LevelChoiceActivity extends AppCompatActivity {
         threeButton = findViewById(R.id.button_three_morris);
         sixButton = findViewById(R.id.button_six_morris);
         nineButton = findViewById(R.id.button_nine_morris);
-
         threeButton.setOnClickListener(new StartGameListener(3));
         sixButton.setOnClickListener(new StartGameListener(6));
         nineButton.setOnClickListener(new StartGameListener(9));

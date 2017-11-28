@@ -1,5 +1,7 @@
 package com.example.micke.labb2mobil.Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Micke on 11/26/2017.
  */
@@ -27,6 +29,7 @@ public class GameState {
     private static GameState gameState;
 
     private GameState(int gameSize) {
+        EmptySpace.setEmptySpaces(new ArrayList<EmptySpace>());
         whitePlayersTurn = true;
         whiteMarker = 3*gameSize;
         blackMarker = 3*gameSize;
@@ -151,7 +154,7 @@ public class GameState {
     }
     return false;
 }
-    public boolean move(int to, int from, boolean isWhiteMarker){
+    public boolean move(int to, int from){
         if(isWhitePlayersTurn()){
             //kollar om det är legal move så länge man inte är i flying phase och att man har rätt
             //att flytta pjäser
@@ -159,26 +162,22 @@ public class GameState {
                     && whiteMarkersOnBoard > 3 && whiteMarker==0){
                 return false;
             }
-            if(isWhiteMarker) {
-                if(gameBoard[to]==EMPTY_SPACE &&
-                        gameBoard[from]==WHITE_MARKER){
-                    gameBoard[to]=WHITE_MARKER;
-                    gameBoard[from]=EMPTY_SPACE;
-                    return true;
-                }
+            if(gameBoard[to]==EMPTY_SPACE &&
+                    gameBoard[from]==WHITE_MARKER){
+                gameBoard[to]=WHITE_MARKER;
+                gameBoard[from]=EMPTY_SPACE;
+                return true;
             }
         }else{
             if(!isPossibleMove(to,from,false)
                     && blackMarkersOnBoard > 3 && blackMarker==0){
                 return false;
             }
-            if(!isWhiteMarker) {
-                if (gameBoard[to] == EMPTY_SPACE &&
-                        gameBoard[from] == BLACK_MARKER) {
-                    gameBoard[to]=BLACK_MARKER;
-                    gameBoard[from]=EMPTY_SPACE;
-                    return true;
-                }
+            if (gameBoard[to] == EMPTY_SPACE &&
+                    gameBoard[from] == BLACK_MARKER) {
+                gameBoard[to]=BLACK_MARKER;
+                gameBoard[from]=EMPTY_SPACE;
+                return true;
             }
         }
         return true;
@@ -199,13 +198,12 @@ public class GameState {
         }
     }
 
-    public boolean set(int position,boolean isWhiteMarker) {
+    public boolean set(int position) {
         if (whitePlayersTurn) {
             //Kollar att det är setting phase
             if(whiteMarker<1){
                 return false;
             }
-            if (isWhiteMarker) {
                 if (gameBoard[position] == EMPTY_SPACE) {
                     gameBoard[position] = WHITE_MARKER;
                     whitePlayersTurn = false;
@@ -214,9 +212,7 @@ public class GameState {
                 } else {
                     return false;
                 }
-            }
         } else {
-            if (!isWhiteMarker) {
                 if(blackMarker<1){
                     return false;
                 }
@@ -229,7 +225,6 @@ public class GameState {
                     return false;
                 }
             }
-        }
         return true;
     }
 
