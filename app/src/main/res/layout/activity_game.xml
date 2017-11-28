@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.micke.labb2mobil.Activities.GameActivity">
 
+    <com.example.micke.labb2mobil.GameView
+        android:id="@+id/gameView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp" />
+
 </android.support.constraint.ConstraintLayout>
