@@ -209,8 +209,7 @@ public class GameState {
                     whitePlayersTurn = false;
                     whiteMarker -= 1;
                     whiteMarkersOnBoard+=1;
-                } else {
-                    return false;
+                    return true;
                 }
         } else {
                 if(blackMarker<1){
@@ -221,11 +220,10 @@ public class GameState {
                     whitePlayersTurn = true;
                     blackMarker -= 1;
                     blackMarkersOnBoard+=1;
-                } else {
-                    return false;
+                    return true;
                 }
             }
-        return true;
+            return false;
     }
 
 
@@ -260,4 +258,5 @@ public class GameState {
     public void setGameBoard(int[] gameBoard) {
         this.gameBoard = gameBoard;
     }
+
 }
