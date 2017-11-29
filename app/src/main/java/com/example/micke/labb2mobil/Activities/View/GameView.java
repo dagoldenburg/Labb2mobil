@@ -27,9 +27,10 @@ public class GameView extends View {
     private  Paint paint;
     public GameView(Context context) {
         super(context);
+        paint = new Paint(Color.RED);
         drawable = getResources().getDrawable(R.drawable.rectangle);
         Rect bound = new Rect(10 ,10,40,40);
-        drawable.setBounds(bound);
+          drawable.setBounds(bound);
 
 
     }
@@ -37,6 +38,8 @@ public class GameView extends View {
     @Override
     public void onDraw(Canvas canvas){
         drawable.draw(canvas);
+
+        canvas.drawRect(100,100, 200,200,paint);
 
     }
 
