@@ -75,12 +75,26 @@ public class PosDrawable extends Drawable {
         }
     }
 
+    public static void onTilt(Context context){
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int w = size.x;
+        int h = size.y;
+        winTextPos = new Point(0, h/2);
+        int orentation = context.getResources().getConfiguration().orientation;
+        if(orentation == context.getResources().getConfiguration().ORIENTATION_LANDSCAPE){
+            textPos = new Point(w/14* 9, h/7*2);
+        }else if(orentation == context.getResources().getConfiguration().ORIENTATION_PORTRAIT){
+            textPos = new Point(w/7*2, h/14*9);
+        }
+    }
+
     public static void initPositions(Context context,int gameSize){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-
         int orentation = context.getResources().getConfiguration().orientation;
-
         emptyPositions = new ArrayList<>();
         Point size = new Point();
         display.getSize(size);
@@ -94,35 +108,26 @@ public class PosDrawable extends Drawable {
         int[] xpos =new int[8];
         int[] ypos =new int[8];
         if(orentation == context.getResources().getConfiguration().ORIENTATION_LANDSCAPE){
-
-
             posWidth= w/40;
             posHeight=h/20;
-            topMargin= (h/8 -posHeight)/2;
-            leftMargin= (w/14-posWidth)/2;
+            topMargin= posHeight;//(h/8 -posHeight)/2;
+            leftMargin= posWidth;//(w/14-posWidth)/2;
             for(int i=0;i<7;i++){
                 xpos[i] = (w/14)*i+leftMargin;
                 ypos[i] = (h/8)*i+topMargin;
-
             }
             textPos = new Point(w/14* 9, h/7*2);
-
         }else  if(orentation== context.getResources().getConfiguration().ORIENTATION_PORTRAIT){
-
-
             posWidth = w/20;
             posHeight = h/40;
-            topMargin =  (h/16- posHeight)/2;
-            leftMargin  = (w/7-posWidth)/2;
+            topMargin = posHeight;//(h/16- posHeight)/2;
+            leftMargin  = posWidth;//(w/7-posWidth)/2;
             for(int i=0;i<7;i++){
                 xpos[i] = (w/7)*i+leftMargin;
                 ypos[i] = (h/16)*i+topMargin;
             }
             textPos = new Point(w/7*2, h/14*9);
         }
-
-
-
 
         int i = 0;
         if(gameSize>2) {

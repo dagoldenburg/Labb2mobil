@@ -23,6 +23,7 @@ public class GameState {
     private int[] gameBoard;
     private boolean whitePlayersTurn;
     private int whiteMarker,blackMarker,whiteMarkersOnBoard,blackMarkersOnBoard;
+    private String gameName;
 
     public static final int EMPTY_SPACE = 0;
     public static final int WHITE_MARKER = 1;
@@ -95,7 +96,7 @@ public class GameState {
         }
         //vertical check
         if (isPossibleMove(i, i + 8,true) && gameBoard[i+8] == MARKER) {
-            if (isPossibleMove(i, i - 8,true) && gameBoard[i+8] == MARKER) {
+            if (isPossibleMove(i, i - 8,true) && gameBoard[i-8] == MARKER) {
                 return true;
             }
         }

@@ -73,6 +73,7 @@ public class GameView extends View {
                     Position position = PosDrawable.seeIfTouch(event.getX(), event.getY(), PosDrawable.getEmptyPositions());
                      try {
                          if (GameState.getGameState().set(position.getPosition())) {
+                             Log.i("asd","position "+position.getPosition());
                              Drawable d = null;
                              if (!GameState.getGameState().isWhitePlayersTurn()) {
                                  d = getResources().getDrawable(R.drawable.white_circle);

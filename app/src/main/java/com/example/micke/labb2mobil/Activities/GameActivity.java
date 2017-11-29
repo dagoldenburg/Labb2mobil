@@ -8,10 +8,10 @@ import com.example.micke.labb2mobil.Activities.View.PosDrawable;
 import com.example.micke.labb2mobil.Model.GameObjects.Position;
 
 public class GameActivity extends AppCompatActivity {
-    GameView gameView ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new GameView(this));
+        PosDrawable.onTilt(this);
     }
 }
