@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class Position {
     private float x;
     private float y;
+    private float width;
+    private float height;
     private int position;
 
     private static ArrayList<Position> positions;
@@ -35,13 +37,15 @@ public class Position {
         int w = size.x;
         int h = size.y;
 
+        //iamnrleamgieoargkeaerg
         int[] xpos = new int[10];
         int[] ypos = new int[10];
-
         for(int i=0;i<9;i++){
             xpos[i] = (w/8)*i;
             ypos[i] = (h/8)*i;
         }
+
+
         int i = 0;
         positions.add(new Position(ypos[2],ypos[2],i++));
         positions.add(new Position(ypos[2],ypos[3],i++));
