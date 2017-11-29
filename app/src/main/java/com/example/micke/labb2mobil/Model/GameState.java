@@ -31,8 +31,8 @@ public class GameState {
     private GameState(int gameSize) {
         EmptySpace.setEmptySpaces(new ArrayList<EmptySpace>());
         whitePlayersTurn = true;
-        whiteMarker = 3*gameSize;
-        blackMarker = 3*gameSize;
+        whiteMarker = gameSize;
+        blackMarker = gameSize;
         gameBoard = new int[8*gameSize];
         whiteMarkersOnBoard=0;
         blackMarkersOnBoard=0;

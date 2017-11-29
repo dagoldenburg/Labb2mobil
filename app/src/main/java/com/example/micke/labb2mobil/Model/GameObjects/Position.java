@@ -21,7 +21,8 @@ public class Position {
     private float height;
     private int position;
 
-    private static ArrayList<Position> positions;
+    private static ArrayList<Position> emptyPositions;
+    private static ArrayList<Position> markerPositions;
 
     public Position(float x, float y,float width,float height, int position) {
         this.x = x;
@@ -31,20 +32,40 @@ public class Position {
         this.position = position;
     }
 
-    public static ArrayList<Position> getPositions() {
-        return positions;
+    public static ArrayList<Position> getEmptyPositions() {
+        return emptyPositions;
     }
 
-    public static void setPositions(ArrayList<Position> positions) {
-        Position.positions = positions;
+    public static void setEmptyPositions(ArrayList<Position> emptyPositions) {
+        Position.emptyPositions = emptyPositions;
     }
 
-    public static void initPositions(Context context){
+    public static Position seeIfTouchEmpty(float x, float y){
+        for(Position p: emptyPositions){
+            if(((x >= p.getX()) && (x <= p.getX()+p.getWidth()))
+                    && ((y>=p.getY()) && (y<=p.getY()+p.getHeight()))){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public static Position seeIfTouchMarker(float x, float y){
+        for(Position p: emptyPositions){
+            if(((x >= p.getX()) && (x <= p.getX()+p.getWidth()))
+                    && ((y>=p.getY()) && (y<=p.getY()+p.getHeight()))){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public static void initemptyPositions(Context context){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-    positions = new ArrayList<>();
+    emptyPositions = new ArrayList<>();
         int w = size.x;
         int h = size.y;
 
@@ -62,42 +83,50 @@ public class Position {
         int posHeight = h/40;
 
         int i = 0;
-        positions.add(new Position(xpos[2],ypos[2],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[3],ypos[2],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[4],ypos[2],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[4],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[4],ypos[4],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[3],ypos[4],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[2],ypos[4],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[2],ypos[3],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[2],ypos[2],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[3],ypos[2],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[4],ypos[2],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[4],ypos[3],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[4],ypos[4],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[3],ypos[4],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[2],ypos[4],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[2],ypos[3],posWidth,posHeight,i++));
 
-        positions.add(new Position(xpos[1],ypos[1],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[3],ypos[1],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[5],ypos[1],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[5],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[5],ypos[5],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[3],ypos[5],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[1],ypos[5],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[1],ypos[3],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[1],ypos[1],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[3],ypos[1],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[5],ypos[1],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[5],ypos[3],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[5],ypos[5],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[3],ypos[5],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[1],ypos[5],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[1],ypos[3],posWidth,posHeight,i++));
 
-        positions.add(new Position(xpos[0],ypos[0],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[3],ypos[0],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[6],ypos[0],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[6],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[6],ypos[6],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[3],ypos[6],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[0],ypos[6],posWidth,posHeight,i++));
-        positions.add(new Position(xpos[0],ypos[3],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[0],ypos[0],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[3],ypos[0],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[6],ypos[0],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[6],ypos[3],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[6],ypos[6],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[3],ypos[6],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[0],ypos[6],posWidth,posHeight,i++));
+        emptyPositions.add(new Position(xpos[0],ypos[3],posWidth,posHeight,i++));
 
     }
 
     public static int fetchPosition(float x,float y){
-        for(Position p : positions){
+        for(Position p : emptyPositions){
             if((p.getX()==x) && (p.getY()==y)){
                 return p.getPosition();
             }
         }
         return -1;
+    }
+
+    public static ArrayList<Position> getMarkerPositions() {
+        return markerPositions;
+    }
+
+    public static void setMarkerPositions(ArrayList<Position> markerPositions) {
+        Position.markerPositions = markerPositions;
     }
 
     public int getPosition() {
