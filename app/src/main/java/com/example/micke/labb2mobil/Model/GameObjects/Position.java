@@ -2,6 +2,7 @@ package com.example.micke.labb2mobil.Model.GameObjects;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
@@ -42,24 +43,57 @@ public class Position {
     public static void initPositions(Context context){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
+        int w =0;
+        int h=0;
+       int orientation= context.getResources().getConfiguration().orientation;
         Point size = new Point();
         display.getSize(size);
-    positions = new ArrayList<>();
-        int w = size.x;
-        int h = size.y;
 
-        int[] xpos = new int[8];
-        int[] ypos = new int[8];
-        for(int i=0;i<8;i++){
-            xpos[i] = (w/7)*i;
-            ypos[i] = (h/16)*i;
-            Log.i("hej",xpos[i]+" "+ypos[i]);
+
+        positions = new ArrayList<>();
+        int topMargin=0;
+        int leftMargin=0;
+        int posHeight=0;
+        int posWidth=0;
+        int[] xpos = new int[7];
+        int[] ypos = new int[7];
+
+
+
+        if(orientation==context.getResources().getConfiguration().ORIENTATION_LANDSCAPE){
+
+            w=size.y;
+            h= size.x;
+
+
+
+            posWidth = w/20;
+            posHeight = h/40;
+            leftMargin =  (h/7- posHeight)/2;
+            topMargin  = (w/16-posWidth)/2;
+
+        }else if(orientation==context.getResources().getConfiguration().ORIENTATION_PORTRAIT) {
+
+            w=size.x;
+            h= size.y;
+            posWidth = w/20;
+            posHeight = h/40;
+            topMargin =  (w/7- posHeight)/2;
+            leftMargin  = (h/16-posWidth)/2;
         }
 
 
 
-        int posWidth = w/20;
-        int posHeight = h/40;
+
+
+
+        for(int i=0;i<7;i++){
+            xpos[i] = (w/7)*i+topMargin;
+            ypos[i] = (h/16)*i+leftMargin;
+            Log.i("hej",xpos[i]+" "+ypos[i]);
+        }
+
+
 
         int i = 0;
         positions.add(new Position(xpos[2],ypos[2],posWidth,posHeight,i++));

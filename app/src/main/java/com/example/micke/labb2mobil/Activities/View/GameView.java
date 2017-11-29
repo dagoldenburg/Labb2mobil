@@ -35,14 +35,7 @@ public class GameView extends View {
 
 
         for(Position p: Position.getPositions()){
-            Drawable rectangle = getResources().getDrawable(R.drawable.rectangle);
 
-            Rect rect = new Rect((int)p.getX(),(int)p.getY(),(int)(p.getX()+p.getWidth()),(int)(p.getY()+p.getHeight()));
-
-            rectangle.setBounds(rect);
-            drawables.add(rectangle);
-
-            Log.i("xposypos","left "+rect.left+" right "+rect.right+" bottom "+rect.bottom+" top "+rect.top);
         }
 
 
