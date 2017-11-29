@@ -2,20 +2,18 @@ package com.example.micke.labb2mobil.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 
-import com.example.micke.labb2mobil.Activities.View.GameView;
+import com.example.micke.labb2mobil.Model.EmptySpace;
+import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
-
 
 public class GameActivity extends AppCompatActivity {
 
-    private GameView gameView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new GameView(this,null));
-
-      //  gameView= (GameView) findViewById(R.id.gameView);
-
+        EmptySpace.createEmptySpaces(this);
+        setContentView(R.layout.activity_game);
     }
 }
