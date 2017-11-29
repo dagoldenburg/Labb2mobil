@@ -14,6 +14,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.example.micke.labb2mobil.Model.GameObjects.Position;
+import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
 
 import java.util.ArrayList;
@@ -40,7 +41,6 @@ public class PosDrawable extends Drawable {
     public static Position seeIfTouch(float x, float y,ArrayList<PosDrawable> list){
         for(PosDrawable t: list){
             Position p = t.getPosition();
-            Log.i("asda","vvvvvvvvvvvvvvvv "+p.getY());
             if(((x >= p.getX()) && (x <= p.getX()+p.getWidth()))
                     && ((y>=p.getY()) && (y<=p.getY()+p.getHeight()))){
                 return p;
@@ -52,6 +52,15 @@ public class PosDrawable extends Drawable {
     public PosDrawable(Drawable proxy, Position pos) {
         this.proxy = proxy;
         this.position = pos;
+    }
+
+    public static int fetchMarker(int move){
+        for(int i=0;i<getMarkers().size();i++){
+            if(markers.get(i).getPosition().getPosition()==move){
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static void initPosDraw(Context context){
