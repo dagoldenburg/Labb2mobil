@@ -2,6 +2,7 @@ package com.example.micke.labb2mobil.Model.GameObjects;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -30,52 +31,64 @@ public class Position {
         this.position = position;
     }
 
+    public static ArrayList<Position> getPositions() {
+        return positions;
+    }
+
+    public static void setPositions(ArrayList<Position> positions) {
+        Position.positions = positions;
+    }
+
     public static void initPositions(Context context){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
+    positions = new ArrayList<>();
         int w = size.x;
         int h = size.y;
 
-        int[] xpos = new int[10];
-        int[] ypos = new int[10];
-        for(int i=0;i<9;i++){
-            xpos[i] = (w/8)*i;
-            ypos[i] = (h/8)*i;
+        int[] xpos = new int[8];
+        int[] ypos = new int[8];
+        for(int i=0;i<8;i++){
+            xpos[i] = (w/7)*i;
+            ypos[i] = (h/16)*i;
+            Log.i("hej",xpos[i]+" "+ypos[i]);
         }
 
+
+
         int posWidth = w/20;
-        int posHeight = h/20;
+        int posHeight = h/40;
 
         int i = 0;
-        positions.add(new Position(ypos[2],ypos[2],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[2],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[2],ypos[4],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[3],ypos[4],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[4],ypos[4],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[4],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[4],ypos[2],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[3],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[2],ypos[2],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[3],ypos[2],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[4],ypos[2],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[4],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[4],ypos[4],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[3],ypos[4],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[2],ypos[4],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[2],ypos[3],posWidth,posHeight,i++));
 
-        positions.add(new Position(ypos[1],ypos[1],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[1],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[1],ypos[5],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[3],ypos[5],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[5],ypos[5],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[5],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[5],ypos[1],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[3],ypos[1],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[1],ypos[1],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[3],ypos[1],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[5],ypos[1],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[5],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[5],ypos[5],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[3],ypos[5],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[1],ypos[5],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[1],ypos[3],posWidth,posHeight,i++));
 
-        positions.add(new Position(ypos[0],ypos[0],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[0],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[0],ypos[7],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[3],ypos[7],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[7],ypos[7],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[7],ypos[3],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[7],ypos[0],posWidth,posHeight,i++));
-        positions.add(new Position(ypos[3],ypos[0],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[0],ypos[0],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[3],ypos[0],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[6],ypos[0],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[6],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[6],ypos[6],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[3],ypos[6],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[0],ypos[6],posWidth,posHeight,i++));
+        positions.add(new Position(xpos[0],ypos[3],posWidth,posHeight,i++));
+
     }
 
     public static int fetchPosition(float x,float y){

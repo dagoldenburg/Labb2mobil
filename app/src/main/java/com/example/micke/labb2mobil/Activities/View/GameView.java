@@ -10,37 +10,52 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 
+import com.example.micke.labb2mobil.Model.GameObjects.Position;
 import com.example.micke.labb2mobil.R;
 
+import java.util.ArrayList;
 import java.util.concurrent.DelayQueue;
 
 
 public class GameView extends View {
+    private ArrayList<Drawable> drawables;
     private Drawable drawable;
     private ImageView eMarker0;
     private ImageView circle;
     private  Paint paint;
     public GameView(Context context) {
         super(context);
-        paint = new Paint();
-        paint.setColor(Color.BLUE);
-        drawable = getResources().getDrawable(R.drawable.rectangle);
-        Rect bound = new Rect(10 ,10,40,40);
-          drawable.setBounds(bound);
+        drawables = new ArrayList<>();
+
+
+        for(Position p: Position.getPositions()){
+            Drawable rectangle = getResources().getDrawable(R.drawable.rectangle);
+
+            Rect rect = new Rect((int)p.getX(),(int)p.getY(),(int)(p.getX()+p.getWidth()),(int)(p.getY()+p.getHeight()));
+
+            rectangle.setBounds(rect);
+            drawables.add(rectangle);
+
+            Log.i("xposypos","left "+rect.left+" right "+rect.right+" bottom "+rect.bottom+" top "+rect.top);
+        }
 
 
     }
 
     @Override
     public void onDraw(Canvas canvas){
-        drawable.draw(canvas);
 
-        canvas.drawRect(100,100, 200,200,paint);
+        for(Drawable d: drawables){
+
+            d.draw(canvas);
+        }
+
 
     }
 
