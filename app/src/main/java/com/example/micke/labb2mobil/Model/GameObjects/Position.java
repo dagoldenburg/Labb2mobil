@@ -22,9 +22,11 @@ public class Position {
 
     private static ArrayList<Position> positions;
 
-    public Position(float x, float y, int position) {
+    public Position(float x, float y,float width,float height, int position) {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.position = position;
     }
 
@@ -37,7 +39,6 @@ public class Position {
         int w = size.x;
         int h = size.y;
 
-        //iamnrleamgieoargkeaerg
         int[] xpos = new int[10];
         int[] ypos = new int[10];
         for(int i=0;i<9;i++){
@@ -45,34 +46,36 @@ public class Position {
             ypos[i] = (h/8)*i;
         }
 
+        int posWidth = w/20;
+        int posHeight = h/20;
 
         int i = 0;
-        positions.add(new Position(ypos[2],ypos[2],i++));
-        positions.add(new Position(ypos[2],ypos[3],i++));
-        positions.add(new Position(ypos[2],ypos[4],i++));
-        positions.add(new Position(ypos[3],ypos[4],i++));
-        positions.add(new Position(ypos[4],ypos[4],i++));
-        positions.add(new Position(ypos[4],ypos[3],i++));
-        positions.add(new Position(ypos[4],ypos[2],i++));
-        positions.add(new Position(ypos[3],ypos[3],i++));
+        positions.add(new Position(ypos[2],ypos[2],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[2],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[2],ypos[4],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[3],ypos[4],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[4],ypos[4],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[4],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[4],ypos[2],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[3],ypos[3],posWidth,posHeight,i++));
 
-        positions.add(new Position(ypos[1],ypos[1],i++));
-        positions.add(new Position(ypos[1],ypos[3],i++));
-        positions.add(new Position(ypos[1],ypos[5],i++));
-        positions.add(new Position(ypos[3],ypos[5],i++));
-        positions.add(new Position(ypos[5],ypos[5],i++));
-        positions.add(new Position(ypos[5],ypos[3],i++));
-        positions.add(new Position(ypos[5],ypos[1],i++));
-        positions.add(new Position(ypos[3],ypos[1],i++));
+        positions.add(new Position(ypos[1],ypos[1],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[1],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[1],ypos[5],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[3],ypos[5],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[5],ypos[5],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[5],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[5],ypos[1],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[3],ypos[1],posWidth,posHeight,i++));
 
-        positions.add(new Position(ypos[0],ypos[0],i++));
-        positions.add(new Position(ypos[0],ypos[3],i++));
-        positions.add(new Position(ypos[0],ypos[7],i++));
-        positions.add(new Position(ypos[3],ypos[7],i++));
-        positions.add(new Position(ypos[7],ypos[7],i++));
-        positions.add(new Position(ypos[7],ypos[3],i++));
-        positions.add(new Position(ypos[7],ypos[0],i++));
-        positions.add(new Position(ypos[3],ypos[0],i++));
+        positions.add(new Position(ypos[0],ypos[0],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[0],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[0],ypos[7],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[3],ypos[7],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[7],ypos[7],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[7],ypos[3],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[7],ypos[0],posWidth,posHeight,i++));
+        positions.add(new Position(ypos[3],ypos[0],posWidth,posHeight,i++));
     }
 
     public static int fetchPosition(float x,float y){
@@ -106,5 +109,21 @@ public class Position {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
     }
 }
