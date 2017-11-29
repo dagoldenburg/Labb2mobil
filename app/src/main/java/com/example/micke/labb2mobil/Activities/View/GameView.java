@@ -27,7 +27,8 @@ public class GameView extends View {
     private  Paint paint;
     public GameView(Context context) {
         super(context);
-        paint = new Paint(Color.RED);
+        paint = new Paint();
+        paint.setColor(Color.BLUE);
         drawable = getResources().getDrawable(R.drawable.rectangle);
         Rect bound = new Rect(10 ,10,40,40);
           drawable.setBounds(bound);
