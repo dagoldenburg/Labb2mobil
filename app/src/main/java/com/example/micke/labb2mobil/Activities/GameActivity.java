@@ -16,7 +16,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Position.initPositions(this);
+        Position.initemptyPositions(this);
         setContentView(new GameView(this));
 
 

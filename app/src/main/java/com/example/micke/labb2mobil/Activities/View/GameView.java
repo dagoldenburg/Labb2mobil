@@ -33,15 +33,22 @@ public class GameView extends View {
     private ArrayList<Drawable> drawables;
     private ArrayList<Drawable> markers;
 
+    private Paint paint;
+
+    private  Drawable text;
+
     public GameView(Context context) {
         super(context);
         drawables = new ArrayList<>();
         markers = new ArrayList<>();
-        for (Position p : Position.getPositions()) {
+        for (Position p : Position.getEmptyPositions()) {
             Drawable rectangle = getResources().getDrawable(R.drawable.rectangle);
             Rect rect = new Rect((int) p.getX(), (int) p.getY(), (int) (p.getX() + p.getWidth()), (int) (p.getY() + p.getHeight()));
             rectangle.setBounds(rect);
             drawables.add(rectangle);
+            paint = new Paint();
+            paint.setTextSize(35);
+
         }
     }
 
@@ -53,6 +60,16 @@ public class GameView extends View {
         for (Drawable d : markers) {
             d.draw(canvas);
         }
+
+
+            if(GameState.getGameState().isWhitePlayersTurn()){
+                canvas.drawText("turn: player 2",Position.getTextPos().x,Position.getTextPos().y,paint );
+
+            }else {
+                canvas.drawText("turn: player1",Position.getTextPos().x,Position.getTextPos().y,paint );
+
+            }
+
     }
 
     @Override
@@ -78,7 +95,7 @@ public class GameView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Position position = Position.seeIfTouch(event.getX(),event.getY());
+        Position position = Position.seeIfTouchEmpty(event.getX(),event.getY());
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             ClipData data = ClipData.newPlainText("", "");
             DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(this);
