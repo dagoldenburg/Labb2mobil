@@ -1,5 +1,7 @@
 package com.example.micke.labb2mobil.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -33,7 +35,11 @@ public class GameState {
         whitePlayersTurn = true;
         whiteMarker = gameSize;
         blackMarker = gameSize;
-        gameBoard = new int[8*gameSize];
+        if(gameSize==3){
+            gameBoard = new int[8];
+        }else if(gameSize==6){
+            gameBoard = new int[16];
+        }else gameBoard = new int[24];
         whiteMarkersOnBoard=0;
         blackMarkersOnBoard=0;
     }
@@ -46,18 +52,15 @@ public class GameState {
         gameState = new GameState(gameSize);
     }
 
-    private boolean checkIfWin(){
-        if(isWhitePlayersTurn()){
-            if(blackMarker==0&&blackMarkersOnBoard<3)
-                return true;
-        }else{
-            if(whiteMarker==0&&whiteMarkersOnBoard<3)
-                return true;
-        }
-        return false;
+    public int checkIfWin(){
+        if(blackMarker==0&&blackMarkersOnBoard<3)
+            return 1;
+        if(whiteMarker==0&&whiteMarkersOnBoard<3)
+            return -1;
+        return 0;
     }
 
-    private boolean areThreeOnRow() {
+    public boolean areThreeOnRow() {
         //if where gameboard has white marker
         //a marker has a neibour in either horiontal
         //or veritcal plane (horiz +1 -1, vertical +8-8)
@@ -67,13 +70,14 @@ public class GameState {
         for (int i = 0; i < gameBoard.length - 1; i++) {
             if (isWhitePlayersTurn()) {
                 if (gameBoard[i] == WHITE_MARKER) {
-                    if (markerCheck(i)) {
+                    if (markerCheck(i,WHITE_MARKER)) {
+                        Log.i("asd", "marker "+i+" ");
                         return true;
                     }
                 }
             } else {
                 if (gameBoard[i] == BLACK_MARKER) {
-                    if (markerCheck(i)) {
+                    if (markerCheck(i,BLACK_MARKER)) {
                         return true;
                     }
                 }
@@ -82,16 +86,16 @@ public class GameState {
         return false;
     }
 
-    private boolean markerCheck(int i){
+    private boolean markerCheck(int i,int MARKER){
         //horizontal check
-        if (isPossibleMove(i, i + 1,true)) {
-            if (isPossibleMove(i, i - 1,true)) {
+        if (isPossibleMove(i, i + 1,true) && gameBoard[i+1] == MARKER) {
+            if (isPossibleMove(i, i - 1,true) && gameBoard[i-1] == MARKER) {
                 return true;
             }
         }
         //vertical check
-        if (isPossibleMove(i, i + 8,true)) {
-            if (isPossibleMove(i, i - 8,true)) {
+        if (isPossibleMove(i, i + 8,true) && gameBoard[i+8] == MARKER) {
+            if (isPossibleMove(i, i - 8,true) && gameBoard[i+8] == MARKER) {
                 return true;
             }
         }
@@ -99,8 +103,12 @@ public class GameState {
     }
 
     private boolean isPossibleMove(int from, int to,boolean ignoreIfMarker){
-        if (gameBoard[to] != 0 && !ignoreIfMarker)
+        try {
+            if (gameBoard[to] != EMPTY_SPACE && !ignoreIfMarker)
+                return false;
+        }catch(ArrayIndexOutOfBoundsException e){
             return false;
+        }
         switch(from)
         {
         case 0:
@@ -152,31 +160,34 @@ public class GameState {
         case 23:
             if (to == 22 || to == 15 || to == 16) return true;
     }
+
     return false;
 }
-    public boolean move(int to, int from){
+    public boolean move(int from, int to){
         if(isWhitePlayersTurn()){
             //kollar om det är legal move så länge man inte är i flying phase och att man har rätt
             //att flytta pjäser
-            if(!isPossibleMove(to,from,false)
-                    && whiteMarkersOnBoard > 3 && whiteMarker==0){
+
+            if(!isPossibleMove(from,to,false) && whiteMarkersOnBoard > 3){
                 return false;
             }
             if(gameBoard[to]==EMPTY_SPACE &&
                     gameBoard[from]==WHITE_MARKER){
                 gameBoard[to]=WHITE_MARKER;
                 gameBoard[from]=EMPTY_SPACE;
+                setWhitePlayersTurn(false);
                 return true;
             }
+
         }else{
-            if(!isPossibleMove(to,from,false)
-                    && blackMarkersOnBoard > 3 && blackMarker==0){
+            if(!isPossibleMove(from,to,false) && blackMarkersOnBoard > 3){
                 return false;
             }
             if (gameBoard[to] == EMPTY_SPACE &&
                     gameBoard[from] == BLACK_MARKER) {
                 gameBoard[to]=BLACK_MARKER;
                 gameBoard[from]=EMPTY_SPACE;
+                setWhitePlayersTurn(true);
                 return true;
             }
         }
@@ -187,15 +198,18 @@ public class GameState {
         if(!areThreeOnRow()){
             return false;
         }
-        if(isWhitePlayersTurn()) {
+        if(isWhitePlayersTurn() && gameBoard[position]==BLACK_MARKER) {
             gameBoard[position] = EMPTY_SPACE;
             blackMarkersOnBoard -= 1;
+            whitePlayersTurn=false;
             return true;
-        }else{
+        }else if(!isWhitePlayersTurn() && gameBoard[position]==WHITE_MARKER){
             gameBoard[position]=EMPTY_SPACE;
+            whitePlayersTurn=true;
             whiteMarkersOnBoard-=1;
             return true;
         }
+        return false;
     }
 
     public boolean set(int position) {
@@ -204,13 +218,13 @@ public class GameState {
             if(whiteMarker<1){
                 return false;
             }
-                if (gameBoard[position] == EMPTY_SPACE) {
-                    gameBoard[position] = WHITE_MARKER;
-                    whitePlayersTurn = false;
-                    whiteMarker -= 1;
-                    whiteMarkersOnBoard+=1;
-                    return true;
-                }
+            if (gameBoard[position] == EMPTY_SPACE) {
+                gameBoard[position] = WHITE_MARKER;
+                whitePlayersTurn = false;
+                whiteMarker -= 1;
+                whiteMarkersOnBoard+=1;
+                return true;
+            }
         } else {
                 if(blackMarker<1){
                     return false;

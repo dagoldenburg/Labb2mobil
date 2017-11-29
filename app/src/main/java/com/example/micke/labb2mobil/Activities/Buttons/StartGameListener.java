@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.example.micke.labb2mobil.Activities.GameActivity;
+import com.example.micke.labb2mobil.Activities.View.PosDrawable;
 import com.example.micke.labb2mobil.Model.GameState;
 
 /**
@@ -24,6 +25,7 @@ public class StartGameListener implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         GameState.startNewGame(gameSize);
+        PosDrawable.initPositions(context,gameSize);
         Intent intent = new Intent(context, GameActivity.class);
         context.startActivity(intent);
     }

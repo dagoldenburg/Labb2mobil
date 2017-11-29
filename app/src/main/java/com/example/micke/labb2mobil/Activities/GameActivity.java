@@ -12,7 +12,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PosDrawable.initPositions(this);
         setContentView(new GameView(this));
     }
 }

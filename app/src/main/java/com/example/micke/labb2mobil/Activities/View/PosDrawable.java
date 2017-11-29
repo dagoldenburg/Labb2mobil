@@ -30,7 +30,8 @@ public class PosDrawable extends Drawable {
     private Position position;
     private static ArrayList<PosDrawable> emptyPositions;
     private static ArrayList<PosDrawable> markers;
-    private static  Point textPos;
+    private static Point textPos;
+    private static Point winTextPos;
     public static ArrayList<PosDrawable> getEmptyPositions() {
         return emptyPositions;
     }
@@ -74,7 +75,7 @@ public class PosDrawable extends Drawable {
         }
     }
 
-    public static void initPositions(Context context){
+    public static void initPositions(Context context,int gameSize){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
 
@@ -85,6 +86,7 @@ public class PosDrawable extends Drawable {
         display.getSize(size);
         int w = size.x;
         int h = size.y;
+        winTextPos = new Point(0, h/2);
         int posWidth=0;
         int posHeight=0;
         int topMargin=0;
@@ -123,32 +125,36 @@ public class PosDrawable extends Drawable {
 
 
         int i = 0;
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[2],ypos[2],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[3],ypos[2],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[4],ypos[2],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[4],ypos[3],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[4],ypos[4],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[3],ypos[4],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[2],ypos[4],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[2],ypos[3],posWidth,posHeight,i++)));
-
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[1],ypos[1],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[3],ypos[1],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[5],ypos[1],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[5],ypos[3],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[5],ypos[5],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[3],ypos[5],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[1],ypos[5],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[1],ypos[3],posWidth,posHeight,i++)));
-
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[0],ypos[0],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[3],ypos[0],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[6],ypos[0],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[6],ypos[3],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[6],ypos[6],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[3],ypos[6],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[0],ypos[6],posWidth,posHeight,i++)));
-        emptyPositions.add(new PosDrawable(null,new Position(xpos[0],ypos[3],posWidth,posHeight,i++)));
+        if(gameSize>2) {
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[2], ypos[2], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[3], ypos[2], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[4], ypos[2], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[4], ypos[3], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[4], ypos[4], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[3], ypos[4], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[2], ypos[4], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[2], ypos[3], posWidth, posHeight, i++)));
+        }
+        if(gameSize>5) {
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[1], ypos[1], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[3], ypos[1], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[5], ypos[1], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[5], ypos[3], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[5], ypos[5], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[3], ypos[5], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[1], ypos[5], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[1], ypos[3], posWidth, posHeight, i++)));
+        }
+        if(gameSize>8) {
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[0], ypos[0], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[3], ypos[0], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[6], ypos[0], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[6], ypos[3], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[6], ypos[6], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[3], ypos[6], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[0], ypos[6], posWidth, posHeight, i++)));
+            emptyPositions.add(new PosDrawable(null, new Position(xpos[0], ypos[3], posWidth, posHeight, i++)));
+        }
         initPosDraw(context);
     }
 
@@ -159,7 +165,15 @@ public class PosDrawable extends Drawable {
     public static void setMarkers(ArrayList<PosDrawable> markers) {
         PosDrawable.markers = markers;
     }
-    
+
+    public static Point getWinTextPos() {
+        return winTextPos;
+    }
+
+    public static void setWinTextPos(Point winTextPos) {
+        PosDrawable.winTextPos = winTextPos;
+    }
+
     public void updateDrawable(int x, int y){
         position.setY(y);
         position.setX(x);
