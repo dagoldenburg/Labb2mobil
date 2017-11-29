@@ -48,7 +48,7 @@ public class GameView extends View {
 
     }
 
-    int move;
+    int from;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         try {
@@ -65,21 +65,44 @@ public class GameView extends View {
                     }
                     Rect rect = new Rect((int) position.getX(), (int) position.getY(), (int) (position.getX() + position.getWidth()), (int) (position.getY() + position.getHeight()));
                     d.setBounds(rect);
-                    PosDrawable.getMarkers().add(new PosDrawable(d, position));
+                    PosDrawable pos = new PosDrawable(d, new Position((int) position.getX(),(int) position.getY(),(int) position.getWidth(),
+                            (int)position.getHeight(),position.getPosition()));
+
+                    PosDrawable.getMarkers().add(pos);
                 }
             } else {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    move = PosDrawable.seeIfTouch(event.getX(), event.getY(), PosDrawable.getMarkers()).getPosition();
+                    from = PosDrawable.seeIfTouch(event.getX(), event.getY(), PosDrawable.getMarkers()).getPosition();
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
                     Log.i("wqer","testi "+(int) event.getY()+" "+(int) event.getX());
                     try {
-                        PosDrawable.getMarkers().get(move).updateDrawable((int) event.getX(),(int) event.getY());
+                        PosDrawable.getMarkers().get(PosDrawable.fetchMarker(from)).updateDrawable((int) event.getX(),(int) event.getY());
                         invalidate();
                     }catch(IndexOutOfBoundsException e){
 
                     }
-                } else {
-                    move = -1;
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+                    int to = PosDrawable.seeIfTouch(event.getX(), event.getY(), PosDrawable.getEmptyPositions()).getPosition();
+                    Log.i("wqer","JAG SLÄPPTES PÅ "+to);
+                    if(GameState.getGameState().move(from,to)){
+                        PosDrawable.getMarkers().get(PosDrawable.fetchMarker(from)).updateDrawable(
+                                (int) PosDrawable.getEmptyPositions().get(to).getPosition().getX(),
+                                (int) PosDrawable.getEmptyPositions().get(to).getPosition().getY());
+                    }else{
+                        try {
+                            PosDrawable.getMarkers().get(PosDrawable.fetchMarker(from)).updateDrawable(
+                                    (int) PosDrawable.getEmptyPositions().get(from).getPosition().getX(),
+                                    (int) PosDrawable.getEmptyPositions().get(from).getPosition().getY());
+                        }catch(IndexOutOfBoundsException e){
+
+
+                        }finally{
+                            from=-1;
+                        }
+                    }
+                }
+                else {
+                    from=-1;
                 }
             }
         }catch(NullPointerException e){

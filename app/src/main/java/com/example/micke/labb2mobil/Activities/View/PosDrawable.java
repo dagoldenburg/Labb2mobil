@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 
 import com.example.micke.labb2mobil.Model.GameObjects.Position;
+import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
 
 import java.util.ArrayList;
@@ -51,6 +52,15 @@ public class PosDrawable extends Drawable {
     public PosDrawable(Drawable proxy, Position pos) {
         this.proxy = proxy;
         this.position = pos;
+    }
+
+    public static int fetchMarker(int move){
+        for(int i=0;i<getMarkers().size();i++){
+            if(markers.get(i).getPosition().getPosition()==move){
+                return i;
+            }
+        }
+        return -1;
     }
 
     private static void initPosDraw(Context context){

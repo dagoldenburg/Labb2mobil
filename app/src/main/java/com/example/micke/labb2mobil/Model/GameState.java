@@ -180,7 +180,7 @@ public class GameState {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
     public boolean remove(int position){
