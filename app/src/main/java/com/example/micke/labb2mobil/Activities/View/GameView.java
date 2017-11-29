@@ -3,10 +3,11 @@ package com.example.micke.labb2mobil.Activities.View;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.view.DragEvent;
+
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -15,13 +16,15 @@ import com.example.micke.labb2mobil.Model.GameObjects.Position;
 import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
 
-import java.util.ArrayList;
 
 
 public class GameView extends View {
+    Paint paint = new Paint();
     public GameView(Context context) {
         super(context);
         setBackgroundColor(Color.CYAN);
+        paint.setTextSize(35);
+
     }
 
     @Override
@@ -32,6 +35,17 @@ public class GameView extends View {
         for (Drawable d : PosDrawable.getMarkers()) {
             d.draw(canvas);
         }
+        if(GameState.getGameState().isWhitePlayersTurn()){
+
+            canvas.drawText("Turn : player white"  , PosDrawable.getTextPos().x,PosDrawable.getTextPos().y,paint);
+            canvas.drawText("Number of marker :" +GameState.getGameState().getWhiteMarker()   , PosDrawable.getTextPos().x,PosDrawable.getTextPos().y+ 40,paint);
+        }else {
+            canvas.drawText("Turn : player black"  , PosDrawable.getTextPos().x,PosDrawable.getTextPos().y,paint);
+            canvas.drawText("Number of marker :" +GameState.getGameState().getBlackMarker()   , PosDrawable.getTextPos().x,PosDrawable.getTextPos().y+ 40,paint);
+
+
+        }
+
     }
 
     int move;
