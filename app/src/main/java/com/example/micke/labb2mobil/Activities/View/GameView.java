@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 
@@ -21,26 +22,22 @@ import java.util.concurrent.DelayQueue;
 
 public class GameView extends View {
     private Drawable drawable;
-    private ImageView rectangle;
+    private ImageView eMarker0;
     private ImageView circle;
     private  Paint paint;
-    public GameView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-
-        Resources resources = context.getResources();
-        rectangle = (ImageView) findViewById(R.id.rectangle);
-        circle = findViewById(R.id.circle);
-
-        drawable =rectangle.getDrawable();
+    public GameView(Context context) {
+        super(context);
+        drawable = getResources().getDrawable(R.drawable.rectangle);
+        Rect bound = new Rect(10 ,10,40,40);
+        drawable.setBounds(bound);
 
 
     }
 
     @Override
     public void onDraw(Canvas canvas){
-        Rect bound = new Rect(10,10,40,40);
-        drawable.setBounds(bound);
-         drawable.draw(canvas);
+        drawable.draw(canvas);
+
     }
 
 }

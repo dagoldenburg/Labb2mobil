@@ -11,21 +11,23 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerHorizontal="true"
-        
-        android:layout_marginTop="17dp" />
-    
-    <ImageView
-        android:id="@+id/rectangle"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/circle"/>
-
+        android:layout_marginTop="17dp">
     <ImageView
         android:id="@+id/circle"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/circle"/>
+
+    <ImageView
+        android:id="@+id/emarker0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rectangle"
+
+        />
+    </com.example.micke.labb2mobil.Activities.View.GameView>
+
+
 
 </android.support.constraint.ConstraintLayout>

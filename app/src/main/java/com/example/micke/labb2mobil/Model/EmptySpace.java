@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 
 public class EmptySpace {
-    private static int[] emptyMarkerIds = {
-            R.id.eMarker0,R.id.eMarker1,
+ /**  private static int[] emptyMarkerIds = {
+            R.id.eMarker1,R.id.eMarker1,
             R.id.eMarker2,R.id.eMarker3,
             R.id.eMarker4,R.id.eMarker5,
             R.id.eMarker6,R.id.eMarker7,
@@ -25,7 +25,7 @@ public class EmptySpace {
             R.id.eMarker18,R.id.eMarker19,
             R.id.eMarker20,R.id.eMarker21,
             R.id.eMarker22,R.id.eMarker23,
-    };
+    };**/
     private static ArrayList<EmptySpace> emptySpaces = new ArrayList<>();
     private ImageView img;
     private int position;
@@ -37,7 +37,7 @@ public class EmptySpace {
 
     public static void createEmptySpaces(Activity act){
         for(int i=0;i<GameState.getGameState().getGameBoard().length;i++){
-            EmptySpace.getEmptySpaces().add(new EmptySpace((ImageView) act.findViewById(emptyMarkerIds[i]),i));
+           // EmptySpace.getEmptySpaces().add(new EmptySpace((ImageView) act.findViewById(emptyMarkerIds[i]),i));
         }
     }
 
