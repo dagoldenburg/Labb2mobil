@@ -1,12 +1,13 @@
 package com.example.micke.labb2mobil.Model.GameObjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Micke on 11/28/2017.
  */
 
-public class Position {
+public class Position implements Serializable {
     private float x;
     private float y;
     private float width;

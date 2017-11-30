@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.micke.labb2mobil.Activities.View.ViewState;
 import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
 import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
@@ -59,7 +60,7 @@ public class LevelChoiceActivity extends AppCompatActivity {
                 return;
             }
             GameState.startNewGame(gameSize);
-            PosDrawable.initPositions(context,gameSize);
+            ViewState.startNewGame(context,gameSize);
             Intent intent = new Intent(context, GameActivity.class);
             context.startActivity(intent);
         }

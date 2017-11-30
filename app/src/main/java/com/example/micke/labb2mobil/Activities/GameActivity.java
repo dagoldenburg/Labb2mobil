@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.micke.labb2mobil.Activities.View.GameView;
+import com.example.micke.labb2mobil.Activities.View.ViewState;
 import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
 
 public class GameActivity extends AppCompatActivity {
@@ -11,6 +12,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new GameView(this));
-        PosDrawable.onTilt(this);
+        ViewState.getViewState().onTilt(this);
     }
 }

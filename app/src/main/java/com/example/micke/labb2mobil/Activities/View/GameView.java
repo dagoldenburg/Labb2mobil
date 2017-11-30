@@ -33,27 +33,27 @@ public class GameView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        for (Drawable d : ViewState.getEmptyPositions()) {
+        for (Drawable d : ViewState.getViewState().getEmptyPositions()) {
             d.draw(canvas);
         }
-        for (Drawable d : ViewState.getMarkers()) {
+        for (Drawable d : ViewState.getViewState().getMarkers()) {
             d.draw(canvas);
         }
         switch(GameState.getGameState().checkIfWin()){
-            case -1: canvas.drawText("BLACK PLAYER WON"  , ViewState.getWinTextPos().x,ViewState.getWinTextPos().y,winPaint);
-                canvas.drawText("PRESS ANYWHERE TO RETURN TO MENU"  , ViewState.getWinTextPos().x,ViewState.getWinTextPos().y+125,winPaint);
+            case -1: canvas.drawText("BLACK PLAYER WON"  , ViewState.getViewState().getWinTextPos().x,ViewState.getViewState().getWinTextPos().y,winPaint);
+                canvas.drawText("PRESS ANYWHERE TO RETURN TO MENU"  , ViewState.getViewState().getWinTextPos().x,ViewState.getViewState().getWinTextPos().y+125,winPaint);
                 break;
-            case 1: canvas.drawText("WHITE PLAYER WON"  , ViewState.getWinTextPos().x,ViewState.getWinTextPos().y+80,winPaint);
-                canvas.drawText("PRESS ANYWHERE TO RETURN TO MENU"  , ViewState.getWinTextPos().x,ViewState.getWinTextPos().y+125,winPaint);
+            case 1: canvas.drawText("WHITE PLAYER WON"  , ViewState.getViewState().getWinTextPos().x,ViewState.getViewState().getWinTextPos().y+80,winPaint);
+                canvas.drawText("PRESS ANYWHERE TO RETURN TO MENU"  , ViewState.getViewState().getWinTextPos().x,ViewState.getViewState().getWinTextPos().y+125,winPaint);
                 break;
             default:break;
         }
         if(GameState.getGameState().isWhitePlayersTurn()){
-            canvas.drawText("Turn : player white"  , ViewState.getTextPos().x,ViewState.getTextPos().y,paint);
-            canvas.drawText("Number of marker :" +GameState.getGameState().getWhiteMarker()   , ViewState.getTextPos().x,ViewState.getTextPos().y+ 40,paint);
+            canvas.drawText("Turn : player white"  , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y,paint);
+            canvas.drawText("Number of marker :" +GameState.getGameState().getWhiteMarker()   , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y+ 40,paint);
         }else {
-            canvas.drawText("Turn : player black"  , ViewState.getTextPos().x,ViewState.getTextPos().y,paint);
-            canvas.drawText("Number of marker :" +GameState.getGameState().getBlackMarker()   , ViewState.getTextPos().x,ViewState.getTextPos().y+ 40,paint);
+            canvas.drawText("Turn : player black"  , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y,paint);
+            canvas.drawText("Number of marker :" +GameState.getGameState().getBlackMarker()   , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y+ 40,paint);
         }
 
     }
@@ -66,11 +66,11 @@ public class GameView extends View {
                         ((Activity)getContext()).finish();
                      }
                      try {
-                         from = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getMarkers()).getPosition();
+                         from = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getMarkers()).getPosition();
                      }catch(NullPointerException e){
 
                     }
-                    Position position = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getEmptyPositions());
+                    Position position = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions());
                      try {
                          if (GameState.getGameState().set(position.getPosition())) {
                              Log.i("asd","position "+position.getPosition());
@@ -87,12 +87,12 @@ public class GameView extends View {
                              PosDrawable pos = new PosDrawable(d, new Position((int) position.getX(), (int) position.getY(), (int) position.getWidth(),
                                      (int) position.getHeight(), position.getPosition()));
 
-                             ViewState.getMarkers().add(pos);
+                             ViewState.getViewState().getMarkers().add(pos);
                          }else if(GameState.getGameState().areThreeOnRow()) {
                              Log.i("asd","remove");
-                             Position pos = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getMarkers());
+                             Position pos = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getMarkers());
                              if (GameState.getGameState().remove(pos.getPosition())) {
-                                 ViewState.getMarkers().remove(ViewState.fetchMarker(pos.getPosition()));
+                                 ViewState.getViewState().getMarkers().remove(ViewState.getViewState().fetchMarker(pos.getPosition()));
                                  invalidate();
                              }
                          }
@@ -101,29 +101,29 @@ public class GameView extends View {
                      }
                 }else if (event.getAction() == MotionEvent.ACTION_MOVE && (GameState.getGameState().getBlackMarker()==0 || GameState.getGameState().getWhiteMarker()==0)) {
                    try {
-                        ViewState.getMarkers().get(ViewState.fetchMarker(from)).updateDrawable((int) event.getX(),(int) event.getY());
+                        ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable((int) event.getX(),(int) event.getY());
                         invalidate();
                     }catch(IndexOutOfBoundsException e){
                     }
                 }else{
                     try{
-                    int to = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getEmptyPositions()).getPosition();
+                    int to = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions()).getPosition();
 
                     if(GameState.getGameState().move(from,to)){
-                        ViewState.getMarkers().get(ViewState.fetchMarker(from)).updateDrawable(
-                                (int) ViewState.getEmptyPositions().get(to).getPosition().getX(),
-                                (int) ViewState.getEmptyPositions().get(to).getPosition().getY());
+                        ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable(
+                                (int) ViewState.getViewState().getEmptyPositions().get(to).getPosition().getX(),
+                                (int) ViewState.getViewState().getEmptyPositions().get(to).getPosition().getY());
                     }else{
-                            ViewState.getMarkers().get(ViewState.fetchMarker(from)).updateDrawable(
-                                    (int) ViewState.getEmptyPositions().get(from).getPosition().getX(),
-                                    (int) ViewState.getEmptyPositions().get(from).getPosition().getY());
+                            ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable(
+                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getX(),
+                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getY());
 
                     }
                 }catch(NullPointerException |ArrayIndexOutOfBoundsException e){
                         try {
-                            ViewState.getMarkers().get(ViewState.fetchMarker(from)).updateDrawable(
-                                    (int) ViewState.getEmptyPositions().get(from).getPosition().getX(),
-                                    (int) ViewState.getEmptyPositions().get(from).getPosition().getY());
+                            ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable(
+                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getX(),
+                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getY());
                         }catch(ArrayIndexOutOfBoundsException e1){
                             from=-1;
                         }

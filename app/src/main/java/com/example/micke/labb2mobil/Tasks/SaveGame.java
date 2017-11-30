@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.micke.labb2mobil.Activities.View.ViewState;
+import com.example.micke.labb2mobil.Model.GameState;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,13 +30,27 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
     protected Boolean doInBackground(Void... voids) {
         FileOutputStream fos = null;
         try {
-            fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+            fos = context.openFileOutput(name+"GameState", Context.MODE_PRIVATE);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            //oos.writeObject(CurrenciesApplicationData.getCurrenciesApplicationData());
+            oos.writeObject(GameState.getGameState());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        fos = null;
+
+        try {
+            fos = context.openFileOutput(name+"ViewState", Context.MODE_PRIVATE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(ViewState.getViewState());
         } catch (IOException e) {
             e.printStackTrace();
             return false;

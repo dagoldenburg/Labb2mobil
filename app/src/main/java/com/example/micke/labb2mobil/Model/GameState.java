@@ -45,6 +45,9 @@ public class GameState implements Serializable{
         whiteMarkersOnBoard=0;
         blackMarkersOnBoard=0;
     }
+    public static void setGameState(GameState game){
+        gameState=game;
+    }
 
     public static GameState getGameState() {
         return gameState;

@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
 import com.example.micke.labb2mobil.Model.GameObjects.Position;
+import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
 
 import java.io.Serializable;
@@ -20,20 +21,35 @@ import java.util.ArrayList;
 
 public class ViewState implements Serializable {
 
-    private static ArrayList<PosDrawable> emptyPositions;
-    private static ArrayList<PosDrawable> markers;
-    private static Point textPos;
-    private static Point winTextPos;
+    private  ArrayList<PosDrawable> emptyPositions;
+    private  ArrayList<PosDrawable> markers;
+    private  Point textPos;
+    private  Point winTextPos;
 
-    public static ArrayList<PosDrawable> getEmptyPositions() {
+    private static ViewState viewState;
+
+    public static void startNewGame(Context context,int gameSize){
+        viewState = new ViewState();
+        viewState.initPositions(context,gameSize);
+    }
+
+    public static void setViewState(ViewState view){
+        viewState = view;
+    }
+
+    public static ViewState getViewState() {
+        return viewState;
+    }
+
+    public  ArrayList<PosDrawable> getEmptyPositions() {
         return emptyPositions;
     }
 
-    public static void setEmptyPositions(ArrayList<PosDrawable> emptyPositions) {
-        ViewState.emptyPositions = emptyPositions;
+    public void setEmptyPositions(ArrayList<PosDrawable> emptyPositions) {
+        this.emptyPositions = emptyPositions;
     }
 
-    public static int fetchMarker(int move){
+    public  int fetchMarker(int move){
         for(int i=0;i<getMarkers().size();i++){
             if(markers.get(i).getPosition().getPosition()==move){
                 return i;
@@ -42,7 +58,7 @@ public class ViewState implements Serializable {
         return -1;
     }
 
-    private static void initPosDraw(Context context){
+    private  void initPosDraw(Context context){
         markers = new ArrayList<>();
         for (PosDrawable pd : emptyPositions) {
             Position p = pd.getPosition();
@@ -53,7 +69,7 @@ public class ViewState implements Serializable {
         }
     }
 
-    public static void onTilt(Context context){
+    public  void onTilt(Context context){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
@@ -69,7 +85,7 @@ public class ViewState implements Serializable {
         }
     }
 
-    public static void initPositions(Context context,int gameSize){
+    public  void initPositions(Context context,int gameSize){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         int orentation = context.getResources().getConfiguration().orientation;
@@ -141,29 +157,29 @@ public class ViewState implements Serializable {
         initPosDraw(context);
     }
 
-    public static Point getTextPos() {
+    public  Point getTextPos() {
         return textPos;
     }
 
-    public static void setTextPos(Point textPos) {
-        ViewState.textPos = textPos;
+    public  void setTextPos(Point textPos) {
+        textPos = textPos;
     }
 
 
-    public static ArrayList<PosDrawable> getMarkers() {
+    public  ArrayList<PosDrawable> getMarkers() {
         return markers;
     }
 
-    public static void setMarkers(ArrayList<PosDrawable> markers) {
-        ViewState.markers = markers;
+    public  void setMarkers(ArrayList<PosDrawable> markers) {
+        markers = markers;
     }
 
-    public static Point getWinTextPos() {
+    public  Point getWinTextPos() {
         return winTextPos;
     }
 
-    public static void setWinTextPos(Point winTextPos) {
-        ViewState.winTextPos = winTextPos;
+    public  void setWinTextPos(Point winTextPos) {
+        winTextPos = winTextPos;
     }
 
 

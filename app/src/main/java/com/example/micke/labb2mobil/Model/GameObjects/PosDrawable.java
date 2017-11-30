@@ -14,13 +14,14 @@ import android.view.WindowManager;
 
 import com.example.micke.labb2mobil.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Dag on 11/29/2017.
  */
 
-public class PosDrawable extends Drawable {
+public class PosDrawable extends Drawable implements Serializable{
 
     private Drawable proxy;
     private Position position;
