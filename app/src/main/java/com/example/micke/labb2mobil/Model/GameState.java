@@ -26,6 +26,7 @@ public class GameState implements Serializable{
     private int whiteMarker,blackMarker,whiteMarkersOnBoard,blackMarkersOnBoard;
     private String gameName;
 
+
     public static final int EMPTY_SPACE = 0;
     public static final int WHITE_MARKER = 1;
     public static final int BLACK_MARKER = 2;

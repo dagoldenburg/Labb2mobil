@@ -24,7 +24,7 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
     private String name;
 
     public interface TaskListener {
-        public void onFinished(int result);
+        public void onFinished(Boolean result);
     }
     private final TaskListener taskListener;
 
@@ -35,13 +35,7 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
         this.name = name;
     }
 
-    SaveGame saveGame = new SaveGame(new SaveGame.TaskListener() {
-        @Override
-        public void onFinished(Boolean result) {
 
-        }
-    },(Context) this);
-    saveGame.execute();
 
     @Override
     protected void onPostExecute(Boolean result) {
@@ -60,30 +54,17 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(GameState.getGameState());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        fos = null;
+            oos.close();
+            fos.close();
 
-        try {
-            fos = context.openFileOutput(name+"ViewState", Context.MODE_PRIVATE);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(ViewState.getViewState());
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+
         Log.i("APPLICATION","Successfull save");
         return true;
     }
 
-    @Override
-    protected void onPostExecute(Boolean isSave) {
-        GameActivity.saveGame(isSave);
-    }
+
 }

@@ -89,7 +89,16 @@ public class GameView extends View {
                         ((Activity)getContext()).finish();
                     }
                     if(PosDrawable.saveGame(event.getX(),event.getY())){
-                        SaveGame saveGame = new SaveGame(getContext(),GameState.getGameState().getGameName());
+                        SaveGame saveGame = new SaveGame(new SaveGame.TaskListener() {
+                            @Override
+                            public void onFinished(Boolean result) {
+                                if(result ==true){
+                                    ((Activity)getContext()).finish();
+                                }
+                            }
+                        }
+
+                    ,getContext(), GameState.getGameState().getGameName());
                         saveGame.execute();
 
                     }

@@ -26,8 +26,7 @@ public class ViewState implements Serializable {
     private  Point textPos;
     private  Point winTextPos;
 
-    private  Drawable newGameButton;
-    private  Drawable loadGameButton;
+
 
     private static ViewState viewState;
 
@@ -61,17 +60,53 @@ public class ViewState implements Serializable {
         return -1;
     }
 
-    private  void initPosDraw(Context context){
-        markers = new ArrayList<>();
+    private  void initPosDraw(Context context) {
+      /**  markers = new ArrayList<>();
         for (PosDrawable pd : emptyPositions) {
             Position p = pd.getPosition();
             Drawable rectangle = context.getResources().getDrawable(R.drawable.rectangle);
             Rect rect = new Rect((int) p.getX(), (int) p.getY(), (int) (p.getX() + p.getWidth()), (int) (p.getY() + p.getHeight()));
             rectangle.setBounds(rect);
             pd.setProxy(rectangle);
-        }
+        }**/
+
+      loadFromfile(context);
 
     }
+    public void loadFromfile( Context context){
+        markers =  new ArrayList<>();
+
+        int[] gamBoard = GameState.getGameState().getGameBoard();
+        for (int i = 0; i < emptyPositions.size(); i++) {
+            PosDrawable pd = emptyPositions.get(i);
+            Position p = pd.getPosition();
+            Drawable rectangle = context.getResources().getDrawable(R.drawable.rectangle);
+            Rect rect = new Rect((int) p.getX(), (int) p.getY(), (int) (p.getX() + p.getWidth()), (int) (p.getY() + p.getHeight()));
+            rectangle.setBounds(rect);
+            pd.setProxy(rectangle);
+
+
+            if (gamBoard[i] == 2) {
+
+                Drawable blackCircle = context.getResources().getDrawable(R.drawable.black_circle);
+                markers.add(new PosDrawable(blackCircle, new Position(p.getX(), p.getY(), p.getWidth(), p.getHeight(), i)));
+                blackCircle.setBounds(rect);
+                pd.setProxy(blackCircle);
+
+
+            }else if(gamBoard[i] ==1){
+
+                Drawable whiteCircle = context.getResources().getDrawable(R.drawable.white_circle);
+                markers.add(new PosDrawable(whiteCircle, new Position(p.getX(), p.getY(), p.getWidth(), p.getHeight(), i)));
+                whiteCircle.setBounds(rect);
+                pd.setProxy(whiteCircle);
+            }
+        }
+    }
+
+
+
+
 
     public  void onTilt(Context context){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

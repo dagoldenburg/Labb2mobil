@@ -18,9 +18,5 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    public static void saveGame(Boolean isSave) {
-        if(isSave){
 
-        }
-    }
 }

@@ -20,9 +20,22 @@ public class LoadGame extends AsyncTask<Void,Void,Boolean>{
     private Context context;
     private String name;
 
-    public LoadGame(Context context,String name){
+
+    public interface TaskListener {
+        public void onFinished(Boolean result);
+    }
+    private final TaskListener taskListener;
+
+    public LoadGame(TaskListener taskListener, Context context, String name){
         this.context = context;
         this.name = name;
+        this.taskListener = taskListener;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean result) {
+        super.onPostExecute(result);
+        taskListener.onFinished(result);
     }
 
     @Override
@@ -32,15 +45,6 @@ public class LoadGame extends AsyncTask<Void,Void,Boolean>{
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             GameState.setGameState( (GameState) ois.readObject());
-        } catch (IOException|ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        try {
-            FileInputStream fis = context.openFileInput(name+"ViewState");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            ViewState.setViewState( (ViewState) ois.readObject());
         } catch (IOException|ClassNotFoundException e) {
             e.printStackTrace();
             return false;
