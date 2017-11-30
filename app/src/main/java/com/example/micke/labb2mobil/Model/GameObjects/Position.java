@@ -1,13 +1,5 @@
 package com.example.micke.labb2mobil.Model.GameObjects;
 
-import android.content.Context;
-import android.graphics.Point;
-import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
-
-import com.example.micke.labb2mobil.Activities.View.PosDrawable;
-
 import java.util.ArrayList;
 
 /**

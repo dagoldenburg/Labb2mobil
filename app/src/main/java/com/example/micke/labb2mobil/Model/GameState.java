@@ -2,6 +2,7 @@ package com.example.micke.labb2mobil.Model;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  *     14       13       12
  * 22           21           20
  */
-public class GameState {
+public class GameState implements Serializable{
 
     private int[] gameBoard;
     private boolean whitePlayersTurn;

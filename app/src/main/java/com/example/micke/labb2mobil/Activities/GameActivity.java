@@ -4,8 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.micke.labb2mobil.Activities.View.GameView;
-import com.example.micke.labb2mobil.Activities.View.PosDrawable;
-import com.example.micke.labb2mobil.Model.GameObjects.Position;
+import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
 
 public class GameActivity extends AppCompatActivity {
     @Override
