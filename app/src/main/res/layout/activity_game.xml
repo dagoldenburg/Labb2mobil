@@ -3,13 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_game"
 >
-    <com.example.micke.labb2mobil.Activities.View.GameView
+    <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@android:color/transparent"/>
+    <!--<com.example.micke.labb2mobil.Activities.View.GameView
         android:id="@+id/gameView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
 
-    />
-
+    />-->
 
 </android.support.constraint.ConstraintLayout>

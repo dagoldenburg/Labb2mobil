@@ -1,10 +1,9 @@
-package com.example.micke.labb2mobil.Activities.Buttons;
+package com.example.micke.labb2mobil.Activities.Controller.Buttons;
 
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.example.micke.labb2mobil.Activities.GameActivity;
 import com.example.micke.labb2mobil.Activities.LoadGameActivity;
 import com.example.micke.labb2mobil.Activities.View.ViewState;
 import com.example.micke.labb2mobil.Tasks.LoadGame;
