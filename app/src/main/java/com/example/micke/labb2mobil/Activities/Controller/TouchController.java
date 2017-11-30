@@ -22,6 +22,11 @@ import com.example.micke.labb2mobil.R;
 public class TouchController {
 
 
+    /**
+     * Sets a new object on screen
+     * @param v
+     * @param event
+     */
     public static void set(View v,MotionEvent event){
         Position position = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions());
         try {
@@ -50,6 +55,12 @@ public class TouchController {
         }
     }
 
+    /**
+     * Realises a move by the player
+     * @param from
+     * @param event
+     * @param v
+     */
     public static void move(Position from,MotionEvent event,View v){
         try{
             Position to = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions());
@@ -69,6 +80,11 @@ public class TouchController {
     }
 
 
+    /**
+     * Return animation for when you make an illegal move
+     * @param from
+     * @param v
+     */
     private static void returnAnimation(int from,View v){
         PosDrawable p = ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from));
 
