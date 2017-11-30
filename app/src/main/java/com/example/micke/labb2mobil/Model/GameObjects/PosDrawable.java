@@ -58,10 +58,14 @@ public class PosDrawable extends Drawable implements Serializable{
     }
 
    public void updateDrawable(int x, int y){
-        position.setY(y);
-        position.setX(x);
-        Rect rect = new Rect((int) position.getX(), (int) position.getY(), (int) (position.getX() + position.getWidth()), (int) (position.getY() + position.getHeight()));
+        Rect rect = new Rect(x, y, (x+ (int)position.getWidth()), ( y + (int)position.getHeight()));
         proxy.setBounds(rect);
+    }
+
+    public void updatePosDrawable(Position pos){
+       position = pos;
+       updateDrawable((int)pos.getX(),(int)pos.getY());
+
     }
 
     public Drawable getProxy() {
