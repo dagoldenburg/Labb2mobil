@@ -59,7 +59,8 @@ public class LevelChoiceActivity extends AppCompatActivity {
                 showToast("Name is required");
                 return;
             }
-            GameState.startNewGame(gameSize);
+            GameState.startNewGame(gameSize, edit.getText().toString());
+
             ViewState.startNewGame(context,gameSize);
             Intent intent = new Intent(context, GameActivity.class);
             context.startActivity(intent);

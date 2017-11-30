@@ -2,6 +2,7 @@ package com.example.micke.labb2mobil.Activities.View;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,26 +14,38 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
+import com.example.micke.labb2mobil.Activities.GameActivity;
+import com.example.micke.labb2mobil.Activities.LevelChoiceActivity;
 import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
 import com.example.micke.labb2mobil.Model.GameObjects.Position;
 import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
+import com.example.micke.labb2mobil.Tasks.SaveGame;
 
 
 public class GameView extends View {
     
     Paint paint = new Paint();
     Paint winPaint = new Paint();
+
+    private  Drawable saveButton;
+    private  Drawable newgameButton;
     public GameView(Context context) {
         super(context);
         setBackgroundColor(Color.CYAN);
         paint.setTextSize(50);
         winPaint.setTextSize(60);
+        saveButton = getResources().getDrawable(R.drawable.save_game);
+        newgameButton = getResources().getDrawable(R.drawable.new_game);
 
     }
 
     @Override
     public void onDraw(Canvas canvas) {
+        newgameButton.setBounds(100, 600 ,300 ,650);
+        saveButton.setBounds(400, 600 ,600 ,650);
+        saveButton.draw(canvas);
+        newgameButton.draw(canvas);
         for (Drawable d : ViewState.getViewState().getEmptyPositions()) {
             d.draw(canvas);
         }
@@ -56,12 +69,24 @@ public class GameView extends View {
             canvas.drawText("Number of marker :" +GameState.getGameState().getBlackMarker()   , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y+ 40,paint);
         }
 
+
+
     }
 
     int from;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (PosDrawable.backtoLevelChoice(event.getX(),event.getY())){
+                        ((Activity)getContext()).finish();
+                    }
+                    if(PosDrawable.saveGame(event.getX(),event.getY())){
+                        SaveGame saveGame = new SaveGame(getContext(),GameState.getGameState().getGameName());
+                        saveGame.execute();
+
+                    }
                     if(GameState.getGameState().checkIfWin()!=0){
                         ((Activity)getContext()).finish();
                      }
@@ -132,6 +157,12 @@ public class GameView extends View {
                 }
         invalidate();
         return true;
+    }
+
+    public static void saveGame(Boolean isSave) {
+        if(isSave){
+
+        }
     }
 
 }

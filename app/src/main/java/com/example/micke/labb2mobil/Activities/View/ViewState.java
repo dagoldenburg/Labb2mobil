@@ -26,6 +26,9 @@ public class ViewState implements Serializable {
     private  Point textPos;
     private  Point winTextPos;
 
+    private  Drawable newGameButton;
+    private  Drawable loadGameButton;
+
     private static ViewState viewState;
 
     public static void startNewGame(Context context,int gameSize){
@@ -67,6 +70,7 @@ public class ViewState implements Serializable {
             rectangle.setBounds(rect);
             pd.setProxy(rectangle);
         }
+
     }
 
     public  void onTilt(Context context){
@@ -79,6 +83,7 @@ public class ViewState implements Serializable {
         winTextPos = new Point(0, h/2);
         int orentation = context.getResources().getConfiguration().orientation;
         if(orentation == context.getResources().getConfiguration().ORIENTATION_LANDSCAPE){
+
             textPos = new Point(w/14* 9, h/7*2);
         }else if(orentation == context.getResources().getConfiguration().ORIENTATION_PORTRAIT){
             textPos = new Point(w/7*2, h/14*9);

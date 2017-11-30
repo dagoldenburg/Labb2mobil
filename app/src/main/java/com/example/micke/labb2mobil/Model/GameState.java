@@ -32,7 +32,8 @@ public class GameState implements Serializable{
 
     private static GameState gameState;
 
-    private GameState(int gameSize) {
+    private GameState(int gameSize ,String gameName) {
+        this.gameName= gameName;
         EmptySpace.setEmptySpaces(new ArrayList<EmptySpace>());
         whitePlayersTurn = true;
         whiteMarker = gameSize;
@@ -53,8 +54,9 @@ public class GameState implements Serializable{
         return gameState;
     }
 
-    public static void startNewGame(int gameSize){
-        gameState = new GameState(gameSize);
+    public static void startNewGame(int gameSize ,String gameName){
+        gameState = new GameState(gameSize, gameName);
+
     }
 
     public int checkIfWin(){
@@ -245,6 +247,13 @@ public class GameState implements Serializable{
             return false;
     }
 
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
 
     public boolean isWhitePlayersTurn() {
         return whitePlayersTurn;

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.micke.labb2mobil.Activities.GameActivity;
+import com.example.micke.labb2mobil.Activities.View.GameView;
 import com.example.micke.labb2mobil.Activities.View.ViewState;
 import com.example.micke.labb2mobil.Model.GameState;
 
@@ -57,5 +59,10 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
         }
         Log.i("APPLICATION","Successfull save");
         return true;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean isSave) {
+        GameActivity.saveGame(isSave);
     }
 }
