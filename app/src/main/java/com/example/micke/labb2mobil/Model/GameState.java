@@ -33,7 +33,6 @@ public class GameState implements Serializable{
     private static GameState gameState;
 
     private GameState(int gameSize) {
-        EmptySpace.setEmptySpaces(new ArrayList<EmptySpace>());
         whitePlayersTurn = true;
         whiteMarker = gameSize;
         blackMarker = gameSize;
@@ -72,7 +71,7 @@ public class GameState implements Serializable{
         //return true else return false;
 
         //TODO: Gör så den inte låter samma rad vara giltig flera gånger
-        for (int i = 0; i < gameBoard.length - 1; i++) {
+        for (int i = 0; i < gameBoard.length; i++) {
             if (isWhitePlayersTurn()) {
                 if (gameBoard[i] == WHITE_MARKER) {
                     if (markerCheck(i,WHITE_MARKER)) {
@@ -92,108 +91,106 @@ public class GameState implements Serializable{
     }
 
     private boolean markerCheck(int i,int MARKER){
-        //horizontal check
         if (isPossibleMove(i, i + 1,true) && gameBoard[i+1] == MARKER) {
             if (isPossibleMove(i, i - 1,true) && gameBoard[i-1] == MARKER) {
                 return true;
             }
         }
-        //vertical check
         if (isPossibleMove(i, i + 8,true) && gameBoard[i+8] == MARKER) {
             if (isPossibleMove(i, i - 8,true) && gameBoard[i-8] == MARKER) {
+                return true;
+            }
+        }
+        if (isPossibleMove(i, i - 7,true) && gameBoard[i-7] == MARKER) {
+            if (isPossibleMove(i, i - 1,true) && gameBoard[i-1] == MARKER) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean isPossibleMove(int from, int to,boolean ignoreIfMarker){
+    public boolean isPossibleMove(int from, int to,boolean ignoreIfMarker){
         try {
-            if (gameBoard[to] != EMPTY_SPACE && !ignoreIfMarker)
+            if ((gameBoard[to] != EMPTY_SPACE) && (!ignoreIfMarker))
                 return false;
         }catch(ArrayIndexOutOfBoundsException e){
             return false;
         }
-        switch(from)
-        {
-        case 0:
-            if (to == 1 || to == 7) return true;
-        case 1:
-            if (to == 0 || to == 2 || to == 9) return true;
-        case 2:
-            if (to == 1 || to == 2) return true;
-        case 3:
-            if (to == 2 || to == 4 || to == 11) return true;
-        case 4:
-            if (to == 3 || to == 5) return true;
-        case 5:
-            if (to == 4 || to == 6 || to == 13) return true;
-        case 6:
-            if (to == 5 || to == 7) return true;
-        case 7:
-            if (to == 6 || to == 0 || to == 15) return true;
-        case 8:
-            if (to == 15 || to == 9) return true;
-        case 9:
-            if (to == 8 || to == 10 || to == 17 || to == 1) return true;
-        case 10:
-            if (to == 9 || to == 11) return true;
-        case 11:
-            if (to == 3 || to == 10 || to == 19 || to == 12) return true;
-        case 12:
-            if (to == 11 || to == 13) return true;
-        case 13:
-            if (to == 5 || to == 21 || to == 12 || to == 14) return true;
-        case 14:
-            if (to == 13 || to == 15) return true;
-        case 15:
-            if (to == 23 || to == 7 || to == 8 || to == 14) return true;
-        case 16:
-            if (to == 17 || to == 23) return true;
-        case 17:
-            if (to == 16 || to == 9 || to == 18) return true;
-        case 18:
-            if (to == 17 || to == 19) return true;
-        case 19:
-            if (to == 18 || to == 20 || to == 11) return true;
-        case 20:
-            if (to == 19 || to == 21) return true;
-        case 21:
-            if (to == 13 || to == 20 || to == 22) return true;
-        case 22:
-            if (to == 21 || to == 13) return true;
-        case 23:
-            if (to == 22 || to == 15 || to == 16) return true;
+        switch(from) {
+            case 0:
+                if (to == 1 || to == 7) return true;break;
+            case 1:
+                if (to == 0 || to == 2 || to == 9) return true;break;
+            case 2:
+                if (to == 1 || to == 3) return true;break;
+            case 3:
+                if (to == 2 || to == 4 || to == 11) return true;break;
+            case 4:
+                if (to == 3 || to == 5) return true;break;
+            case 5:
+                if (to == 4 || to == 6 || to == 13) return true;break;
+            case 6:
+                if (to == 5 || to == 7) return true;break;
+            case 7:
+                if (to == 6 || to == 0 || to == 15) return true;break;
+            case 8:
+                if (to == 15 || to == 9) return true;break;
+            case 9:
+                if (to == 8 || to == 10 || to == 17 || to == 1) return true;break;
+            case 10:
+                if (to == 9 || to == 11) return true;break;
+            case 11:
+                if (to == 3 || to == 10 || to == 19 || to == 12) return true;break;
+            case 12:
+                if (to == 11 || to == 13) return true;break;
+            case 13:
+                if (to == 5 || to == 21 || to == 12 || to == 14) return true;break;
+            case 14:
+                if (to == 13 || to == 15) return true;break;
+            case 15:
+                if (to == 23 || to == 7 || to == 8 || to == 14) return true;break;
+            case 16:
+                if (to == 17 || to == 23) return true;break;
+            case 17:
+                if (to == 16 || to == 9 || to == 18) return true;break;
+            case 18:
+                if (to == 17 || to == 19) return true;break;
+            case 19:
+                if (to == 18 || to == 20 || to == 11) return true;break;
+            case 20:
+                if (to == 19 || to == 21) return true;break;
+            case 21:
+                if (to == 13 || to == 20 || to == 22) return true;break;
+            case 22:
+                if (to == 21 || to == 23) return true;break;
+            case 23:
+                if (to == 22 || to == 15 || to == 16) return true;break;
     }
 
     return false;
 }
     public boolean move(int from, int to){
         if(isWhitePlayersTurn()){
-            //kollar om det är legal move så länge man inte är i flying phase och att man har rätt
-            //att flytta pjäser
-
-            if(!isPossibleMove(from,to,false) && whiteMarkersOnBoard > 3){
-                return false;
+            boolean bajs = isPossibleMove(from,to,false);
+            Log.i("bajs",bajs+"");
+            if(bajs) {
+                if (gameBoard[to] == EMPTY_SPACE &&
+                        gameBoard[from] == WHITE_MARKER) {
+                    gameBoard[to] = WHITE_MARKER;
+                    gameBoard[from] = EMPTY_SPACE;
+                    setWhitePlayersTurn(false);
+                    return true;
+                }
             }
-            if(gameBoard[to]==EMPTY_SPACE &&
-                    gameBoard[from]==WHITE_MARKER){
-                gameBoard[to]=WHITE_MARKER;
-                gameBoard[from]=EMPTY_SPACE;
-                setWhitePlayersTurn(false);
-                return true;
-            }
-
-        }else{
-            if(!isPossibleMove(from,to,false) && blackMarkersOnBoard > 3){
-                return false;
-            }
-            if (gameBoard[to] == EMPTY_SPACE &&
-                    gameBoard[from] == BLACK_MARKER) {
-                gameBoard[to]=BLACK_MARKER;
-                gameBoard[from]=EMPTY_SPACE;
-                setWhitePlayersTurn(true);
-                return true;
+        }else {
+            if (isPossibleMove(from, to, false)) {
+                if (gameBoard[to] == EMPTY_SPACE &&
+                        gameBoard[from] == BLACK_MARKER) {
+                    gameBoard[to] = BLACK_MARKER;
+                    gameBoard[from] = EMPTY_SPACE;
+                    setWhitePlayersTurn(true);
+                    return true;
+                }
             }
         }
         return false;

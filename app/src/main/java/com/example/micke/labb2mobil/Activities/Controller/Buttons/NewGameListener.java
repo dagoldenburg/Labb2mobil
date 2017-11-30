@@ -1,4 +1,4 @@
-package com.example.micke.labb2mobil.Activities.Buttons;
+package com.example.micke.labb2mobil.Activities.Controller.Buttons;
 
 import android.content.Context;
 import android.content.Intent;

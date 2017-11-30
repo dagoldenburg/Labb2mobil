@@ -33,18 +33,10 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
         this.name = name;
     }
 
-    SaveGame saveGame = new SaveGame(new SaveGame.TaskListener() {
-        @Override
-        public void onFinished(Boolean result) {
-
-        }
-    },(Context) this);
-    saveGame.execute();
 
     @Override
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
-        taskListener.onFinished(result);
     }
 
     @Override
