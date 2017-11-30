@@ -43,6 +43,10 @@ public class LevelChoiceActivity extends AppCompatActivity {
         sixButton.setOnClickListener(new StartGameListener(6,this));
         nineButton.setOnClickListener(new StartGameListener(9,this));
     }
+
+    /**
+     * load a new game with game size 3 or 6 or 9 , depends on user choice
+     */
     private class StartGameListener implements View.OnClickListener{
 
         private int gameSize;

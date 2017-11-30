@@ -18,6 +18,10 @@ public class NewGameListener implements View.OnClickListener {
         context = c;
     }
 
+    /**
+     * on click action when user choices a lever 3-6-9
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(context, LevelChoiceActivity.class);

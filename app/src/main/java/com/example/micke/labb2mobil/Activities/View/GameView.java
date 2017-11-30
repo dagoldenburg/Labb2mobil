@@ -99,10 +99,10 @@ public class GameView extends View {
         }
         if(GameState.getGameState().isWhitePlayersTurn()){
             canvas.drawText("Turn : player white"  , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y,paint);
-            canvas.drawText("Number of marker :" +GameState.getGameState().getWhiteMarker()   , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y+ 40,paint);
+            canvas.drawText("Number of markers :" +GameState.getGameState().getWhiteMarker()   , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y+ 40,paint);
         }else {
             canvas.drawText("Turn : player black"  , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y,paint);
-            canvas.drawText("Number of marker :" +GameState.getGameState().getBlackMarker()   , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y+ 40,paint);
+            canvas.drawText("Number of markers :" +GameState.getGameState().getBlackMarker()   , ViewState.getViewState().getTextPos().x,ViewState.getViewState().getTextPos().y+ 40,paint);
         }
 
 

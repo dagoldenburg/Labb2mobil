@@ -21,6 +21,10 @@ public class LoadGameListener implements View.OnClickListener {
         context = c;
     }
 
+    /**
+     * on click event when user choice to load a old game from file
+     * @param v
+     */
     @Override
     public void onClick(View v) {
        Intent intent = new Intent(context, LoadGameActivity.class);

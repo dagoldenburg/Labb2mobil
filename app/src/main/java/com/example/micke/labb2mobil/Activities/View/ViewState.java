@@ -71,7 +71,6 @@ public class ViewState implements Serializable {
      */
     private  void initPosDraw(Context context){
         markers = new ArrayList<>();
-    private  void initPosDraw(Context context) {
       /** markers = new ArrayList<>();
         for (PosDrawable pd : emptyPositions) {
             Position p = pd.getPosition();
@@ -82,7 +81,9 @@ public class ViewState implements Serializable {
         }**/
 
       loadFromfile(context);
-
+        /**
+         * Loads a saved  game state  or a new game state, if it loads from a saved game state create vew state
+         */
     }
     public void loadFromfile( Context context){
         markers =  new ArrayList<>();

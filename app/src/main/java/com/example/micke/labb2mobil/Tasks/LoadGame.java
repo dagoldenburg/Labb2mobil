@@ -38,6 +38,11 @@ public class LoadGame extends AsyncTask<Void,Void,Boolean>{
         taskListener.onFinished(result);
     }
 
+    /**
+     * a new task to loading a saved game from file
+     * @param voids
+     * @return
+     */
     @Override
     protected Boolean doInBackground(Void... voids){
         try {

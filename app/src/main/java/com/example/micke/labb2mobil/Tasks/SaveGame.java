@@ -43,6 +43,11 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
         taskListener.onFinished(result);
     }
 
+    /**
+     * a new task to saving current game state in file
+     * @param voids
+     * @return
+     */
     @Override
     protected Boolean doInBackground(Void... voids) {
         FileOutputStream fos = null;

@@ -36,8 +36,8 @@ public class GameActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.ng:
                         Log.i("asd", "NEW GAME");
-                        Intent intent = new Intent(getApplicationContext(), LevelChoiceActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         startActivity(intent);
                         return true;
