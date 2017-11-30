@@ -1,16 +1,22 @@
 package com.example.micke.labb2mobil.Activities.View;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PathMeasure;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 
 
 import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
@@ -58,7 +64,7 @@ public class GameView extends View {
 
     }
 
-    int from;
+    Position from;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -66,7 +72,7 @@ public class GameView extends View {
                         ((Activity)getContext()).finish();
                      }
                      try {
-                         from = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getMarkers()).getPosition();
+                         from = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getMarkers());
                      }catch(NullPointerException e){
 
                     }
@@ -101,37 +107,50 @@ public class GameView extends View {
                      }
                 }else if (event.getAction() == MotionEvent.ACTION_MOVE && (GameState.getGameState().getBlackMarker()==0 || GameState.getGameState().getWhiteMarker()==0)) {
                    try {
-                        ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable((int) event.getX(),(int) event.getY());
+                        ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from.getPosition())).updateDrawable((int) event.getX(),(int) event.getY());
                         invalidate();
-                    }catch(IndexOutOfBoundsException e){
+                    }catch(IndexOutOfBoundsException|NullPointerException e){
                     }
                 }else{
                     try{
-                    int to = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions()).getPosition();
-
-                    if(GameState.getGameState().move(from,to)){
-                        ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable(
-                                (int) ViewState.getViewState().getEmptyPositions().get(to).getPosition().getX(),
-                                (int) ViewState.getViewState().getEmptyPositions().get(to).getPosition().getY());
+                    Position to = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions());
+                    if(GameState.getGameState().move(from.getPosition(),to.getPosition())){
+                        ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from.getPosition())).updatePosDrawable(to);
                     }else{
-                            ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable(
-                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getX(),
-                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getY());
+                        returnAnimation(from.getPosition());
+                        Log.i("asd","drop on illegal");
 
                     }
                 }catch(NullPointerException |ArrayIndexOutOfBoundsException e){
+                        Log.i("asd","bad event");
                         try {
-                            ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from)).updateDrawable(
-                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getX(),
-                                    (int) ViewState.getViewState().getEmptyPositions().get(from).getPosition().getY());
-                        }catch(ArrayIndexOutOfBoundsException e1){
-                            from=-1;
+                            returnAnimation(from.getPosition());
+                        }catch(IndexOutOfBoundsException|NullPointerException e1){
+                            Log.i("asd","from nullibulli");
+                            from=null;
                         }
-                        from=-1;
+                        Log.i("asd","from getting nulled ");
+                        from=null;
                         }
                 }
         invalidate();
         return true;
     }
+
+    private void returnAnimation(int from){
+        PosDrawable p = ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from));
+
+        ObjectAnimator moveLeft = ObjectAnimator.ofFloat(p.getProxy().getBounds().left, "left", p.getPosition().getX() );
+        ObjectAnimator moveRight = ObjectAnimator.ofFloat(p.getProxy().getBounds().right, "right", p.getPosition().getX()+p.getPosition().getWidth() );
+        ObjectAnimator moveTop = ObjectAnimator.ofFloat(p.getProxy().getBounds().top, "top", p.getPosition().getY() );
+        ObjectAnimator moveBottom = ObjectAnimator.ofFloat(p.getProxy().getBounds().bottom, "bottom", p.getPosition().getY()+p.getPosition().getHeight() );
+
+        AnimatorSet as = new AnimatorSet();
+        as.setDuration(10);
+        as.playTogether(moveLeft, moveRight,moveTop,moveBottom);
+        as.start();
+        Log.i("asd","from getting animated");
+    }
+
 
 }

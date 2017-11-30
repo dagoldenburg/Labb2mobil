@@ -21,7 +21,21 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
     private Context context;
     private String name;
 
-    public SaveGame(Context context,String name){
+    public interface TaskListener {
+        public void onFinished(int result);
+    }
+    private final TaskListener taskListener;
+
+    saveGame = new SaveGame(new SaveGame.TaskListener() {
+        @Override
+        public void onFinished(int result) {
+
+        }
+    },(Context) this);
+    saveGame.execute();
+
+    public SaveGame(TaskListener listener,Context context,String name){
+        this.taskListener = listener;
         this.context = context;
         this.name = name;
     }
