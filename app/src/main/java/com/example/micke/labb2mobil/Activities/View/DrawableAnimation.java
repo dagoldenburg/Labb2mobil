@@ -22,6 +22,10 @@ public class DrawableAnimation implements ValueAnimator.AnimatorUpdateListener {
         this.who = who;
     }
 
+    /**
+     * Animates a drawable
+     * @param animation
+     */
     @Override
     public void onAnimationUpdate(ValueAnimator animation) {
         int left = p.getProxy().getBounds().left;

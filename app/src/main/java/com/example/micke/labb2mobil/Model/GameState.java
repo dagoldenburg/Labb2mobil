@@ -62,6 +62,10 @@ public class GameState implements Serializable{
 
     }
 
+    /**
+     * Check if someone won and who
+     * @return which player won, 1 for white, -1 for black, 0 for no one
+     */
     public int checkIfWin(){
         if(blackMarker==0&&blackMarkersOnBoard<3)
             return 1;
@@ -70,6 +74,10 @@ public class GameState implements Serializable{
         return 0;
     }
 
+    /**
+     * Sees a player is allowed to remove the opposite players marker
+     * @return true if 3 on row false if not
+     */
     public boolean areThreeOnRow() {
         //if where gameboard has white marker
         //a marker has a neibour in either horiontal
@@ -96,6 +104,12 @@ public class GameState implements Serializable{
         return false;
     }
 
+    /**
+     * helper method to see if 3 are in a row
+     * @param i
+     * @param MARKER
+     * @return true if 3 on row false if not
+     */
     private boolean markerCheck(int i,int MARKER){
         if (isPossibleMove(i, i + 1,true) && gameBoard[i+1] == MARKER) {
             if (isPossibleMove(i, i - 1,true) && gameBoard[i-1] == MARKER) {
@@ -115,6 +129,13 @@ public class GameState implements Serializable{
         return false;
     }
 
+    /**
+     * Determines wheter a move is legal or not.
+     * @param from
+     * @param to
+     * @param ignoreIfMarker
+     * @return true if legal false if not
+     */
     public boolean isPossibleMove(int from, int to,boolean ignoreIfMarker){
         try {
             if ((gameBoard[to] != EMPTY_SPACE) && (!ignoreIfMarker))
@@ -175,6 +196,13 @@ public class GameState implements Serializable{
 
     return false;
 }
+
+    /**
+     * Moves a marker
+     * @param from
+     * @param to
+     * @return if move was made or not
+     */
     public boolean move(int from, int to){
         if(isWhitePlayersTurn()){
             boolean bajs = isPossibleMove(from,to,false);
@@ -202,6 +230,11 @@ public class GameState implements Serializable{
         return false;
     }
 
+    /**
+     * removes a marker
+     * @param position
+     * @return if marker was removed or not
+     */
     public boolean remove(int position){
         if(!areThreeOnRow()){
             return false;
@@ -220,6 +253,11 @@ public class GameState implements Serializable{
         return false;
     }
 
+    /**
+     * sets a marker
+     * @param position
+     * @return if a marker was set or not
+     */
     public boolean set(int position) {
         if (whitePlayersTurn) {
             //Kollar att det är setting phase

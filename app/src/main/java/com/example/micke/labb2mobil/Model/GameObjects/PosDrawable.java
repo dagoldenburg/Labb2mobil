@@ -26,9 +26,14 @@ public class PosDrawable extends Drawable implements Serializable{
     private Drawable proxy;
     private Position position;
 
-
+    /**
+     * Sees if an x and y coord is touching an object on screen
+     * @param x
+     * @param y
+     * @param list
+     * @return the Position object of the touched position
+     */
     public static Position seeIfTouch(float x, float y,ArrayList<PosDrawable> list){
-
         for(PosDrawable t: list){
             Position p = t.getPosition();
             if(((x >= p.getX()) && (x <= p.getX()+p.getWidth()))
@@ -44,11 +49,20 @@ public class PosDrawable extends Drawable implements Serializable{
         this.position = pos;
     }
 
+    /**
+     * Updates position of a drawable
+     * @param x
+     * @param y
+     */
    public void updateDrawable(int x, int y){
         Rect rect = new Rect(x, y, (x+ (int)position.getWidth()), ( y + (int)position.getHeight()));
         proxy.setBounds(rect);
     }
 
+    /**
+     * Updates position of a PosDrawable
+     * @param pos
+     */
     public void updatePosDrawable(Position pos){
        position = pos;
        updateDrawable((int)pos.getX(),(int)pos.getY());

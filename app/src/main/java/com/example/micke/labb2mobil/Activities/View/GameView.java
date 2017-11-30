@@ -72,6 +72,10 @@ public class GameView extends View {
         fillLines();
     }
 
+    /**
+     * Redraws the view
+     * @param canvas
+     */
     @Override
     public void onDraw(Canvas canvas) {
 
@@ -104,6 +108,13 @@ public class GameView extends View {
 
 
     }
+
+
+    /**
+     *  Handles touch events from the player
+     * @param event
+     * @return
+     */
     Position from;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -130,26 +141,6 @@ public class GameView extends View {
         invalidate();
         return true;
     }
-
-        private void returnAnimation(int from){
-            PosDrawable p = ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from));
-
-            ValueAnimator moveLeft = ValueAnimator.ofInt(p.getProxy().getBounds().left,(int) p.getPosition().getX() );
-            ValueAnimator moveRight = ValueAnimator.ofInt(p.getProxy().getBounds().right,  (int)p.getPosition().getX()+(int)p.getPosition().getWidth() );
-            ValueAnimator moveTop = ValueAnimator.ofInt(p.getProxy().getBounds().top, (int)p.getPosition().getY() );
-            ValueAnimator moveBottom = ValueAnimator.ofInt(p.getProxy().getBounds().bottom, ((int)p.getPosition().getY()+(int)p.getPosition().getHeight()) );
-
-            moveLeft.addUpdateListener(new DrawableAnimation(p,this,0));
-            moveTop.addUpdateListener(new DrawableAnimation(p,this,1));
-            moveRight.addUpdateListener(new DrawableAnimation(p,this,2));
-            moveBottom.addUpdateListener(new DrawableAnimation(p,this,3));
-
-            AnimatorSet as = new AnimatorSet();
-            as.setDuration(1000);
-            as.playTogether(moveLeft, moveRight,moveTop,moveBottom);
-            as.start();
-            Log.i("asd","from getting animated");
-        }
 
 
 }

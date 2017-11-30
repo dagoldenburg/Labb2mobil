@@ -51,6 +51,11 @@ public class ViewState implements Serializable {
         this.emptyPositions = emptyPositions;
     }
 
+    /**
+     * gets a markers position based on its position on the board
+     * @param move
+     * @return
+     */
     public  int fetchMarker(int move){
         for(int i=0;i<getMarkers().size();i++){
             if(markers.get(i).getPosition().getPosition()==move){
@@ -60,6 +65,12 @@ public class ViewState implements Serializable {
         return -1;
     }
 
+    /**
+     * Fills the list of empty positions with rectangles
+     * @param context
+     */
+    private  void initPosDraw(Context context){
+        markers = new ArrayList<>();
     private  void initPosDraw(Context context) {
       /** markers = new ArrayList<>();
         for (PosDrawable pd : emptyPositions) {
@@ -108,6 +119,10 @@ public class ViewState implements Serializable {
 
 
 
+    /**
+     * Update the screen on screen tilt
+     * @param context
+     */
     public  void onTilt(Context context){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -125,6 +140,11 @@ public class ViewState implements Serializable {
         }
     }
 
+    /**
+     * Initializes the positions in the emptySpaces list
+     * @param context
+     * @param gameSize
+     */
     public  void initPositions(Context context,int gameSize){
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
