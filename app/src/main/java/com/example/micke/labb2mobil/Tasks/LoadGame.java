@@ -41,7 +41,7 @@ public class LoadGame extends AsyncTask<Void,Void,Boolean>{
     @Override
     protected Boolean doInBackground(Void... voids){
         try {
-            FileInputStream fis = context.openFileInput(name+"GameState");
+            FileInputStream fis = context.openFileInput(name);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             GameState.setGameState( (GameState) ois.readObject());

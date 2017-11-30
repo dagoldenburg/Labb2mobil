@@ -61,7 +61,7 @@ public class ViewState implements Serializable {
     }
 
     private  void initPosDraw(Context context) {
-      /**  markers = new ArrayList<>();
+      /** markers = new ArrayList<>();
         for (PosDrawable pd : emptyPositions) {
             Position p = pd.getPosition();
             Drawable rectangle = context.getResources().getDrawable(R.drawable.rectangle);
@@ -91,7 +91,7 @@ public class ViewState implements Serializable {
                 Drawable blackCircle = context.getResources().getDrawable(R.drawable.black_circle);
                 markers.add(new PosDrawable(blackCircle, new Position(p.getX(), p.getY(), p.getWidth(), p.getHeight(), i)));
                 blackCircle.setBounds(rect);
-                pd.setProxy(blackCircle);
+               // pd.setProxy(blackCircle);
 
 
             }else if(gamBoard[i] ==1){
@@ -99,7 +99,7 @@ public class ViewState implements Serializable {
                 Drawable whiteCircle = context.getResources().getDrawable(R.drawable.white_circle);
                 markers.add(new PosDrawable(whiteCircle, new Position(p.getX(), p.getY(), p.getWidth(), p.getHeight(), i)));
                 whiteCircle.setBounds(rect);
-                pd.setProxy(whiteCircle);
+               // pd.setProxy(whiteCircle);
             }
         }
     }

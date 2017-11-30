@@ -31,8 +31,7 @@ public class GameView extends View {
     Paint paint = new Paint();
     Paint winPaint = new Paint();
 
-    private  Drawable saveButton;
-    private  Drawable newgameButton;
+
 
     ArrayList<Line> lines = new ArrayList<>();
 
@@ -66,8 +65,7 @@ public class GameView extends View {
         setBackgroundColor(Color.CYAN);
         paint.setTextSize(50);
         winPaint.setTextSize(60);
-        saveButton = getResources().getDrawable(R.drawable.save_game);
-        newgameButton = getResources().getDrawable(R.drawable.new_game);
+
 
         line.setStrokeWidth(5);
         line.setColor(Color.BLACK);
@@ -76,10 +74,7 @@ public class GameView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        newgameButton.setBounds(100, 600 ,300 ,650);
-        saveButton.setBounds(400, 600 ,600 ,650);
-        saveButton.draw(canvas);
-        newgameButton.draw(canvas);
+
         for(Line l : lines){
             canvas.drawLine(l.getStartX(),l.getStartY(),l.getStopX(),l.getStopY(),line);
         }
@@ -115,20 +110,6 @@ public class GameView extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if(GameState.getGameState().checkIfWin()!=0){
                 ((Activity)getContext()).finish();
-            }
-            if (PosDrawable.backtoLevelChoice(event.getX(),event.getY())){
-                ((Activity)getContext()).finish();
-            }
-            if(PosDrawable.saveGame(event.getX(),event.getY())) {
-                SaveGame saveGame = new SaveGame(new SaveGame.TaskListener() {
-                    @Override
-                    public void onFinished(Boolean result) {
-                        if (result == true) {
-                            ((Activity) getContext()).finish();
-                        }
-                    }
-                }, getContext(), GameState.getGameState().getGameName());
-                saveGame.execute();
             }
             try {
                 from = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getMarkers());

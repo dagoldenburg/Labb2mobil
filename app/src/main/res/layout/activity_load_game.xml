@@ -8,6 +8,17 @@
     android:background="#00ffff">
 
 
-
-
+    <ListView
+        android:id="@+id/gameNames"
+        android:layout_width="202dp"
+        android:layout_height="379dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="92dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
 </android.support.constraint.ConstraintLayout>

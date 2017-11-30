@@ -26,20 +26,7 @@ public class PosDrawable extends Drawable implements Serializable{
     private Drawable proxy;
     private Position position;
 
-    public static  boolean backtoLevelChoice(float x , float y){
-        if(x>100 && x<300 && y >600 && y< 650){
-            return  true;
-        }
-        return  false;
 
-    }
-    public static  boolean saveGame(float x ,float y){
-        if(x>400 && x<600 && y >600 && y< 650){
-            return  true;
-        }
-        return  false;
-
-    }
     public static Position seeIfTouch(float x, float y,ArrayList<PosDrawable> list){
 
         for(PosDrawable t: list){

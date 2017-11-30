@@ -23,20 +23,8 @@ public class LoadGameListener implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-       // Intent intent = new Intent(context, LoadGameActivity.class);
-        //context.startActivity(intent);
+       Intent intent = new Intent(context, LoadGameActivity.class);
+        context.startActivity(intent);
 
-
-        LoadGame loadGame = new LoadGame(new LoadGame.TaskListener() {
-            @Override
-            public void onFinished(Boolean result) {
-                ViewState.startNewGame(context,6);
-                Intent intent = new Intent(context,GameActivity.class);
-                context.startActivity(intent);
-            }
-        },context,"Douglas");
-
-
-        loadGame.execute();
     }
 }

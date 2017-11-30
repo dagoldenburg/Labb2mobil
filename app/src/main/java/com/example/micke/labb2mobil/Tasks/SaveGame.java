@@ -47,7 +47,7 @@ public class SaveGame extends AsyncTask<Void,Void,Boolean> {
     protected Boolean doInBackground(Void... voids) {
         FileOutputStream fos = null;
         try {
-            fos = context.openFileOutput(name+"GameState", Context.MODE_PRIVATE);
+            fos = context.openFileOutput(name, Context.MODE_PRIVATE);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

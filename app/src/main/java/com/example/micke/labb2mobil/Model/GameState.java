@@ -25,6 +25,7 @@ public class GameState implements Serializable{
     private boolean whitePlayersTurn;
     private int whiteMarker,blackMarker,whiteMarkersOnBoard,blackMarkersOnBoard;
     private String gameName;
+    private int Gamesize;
 
 
     public static final int EMPTY_SPACE = 0;
@@ -35,6 +36,7 @@ public class GameState implements Serializable{
 
 
     private GameState(int gameSize ,String gameName) {
+        this.Gamesize=gameSize;
         this.gameName= gameName;
         whitePlayersTurn = true;
         whiteMarker = gameSize;
@@ -260,6 +262,14 @@ public class GameState implements Serializable{
 
     public void setWhitePlayersTurn(boolean whitePlayersTurn) {
         this.whitePlayersTurn = whitePlayersTurn;
+    }
+
+    public int getGamesize() {
+        return Gamesize;
+    }
+
+    public void setGamesize(int gamesize) {
+        Gamesize = gamesize;
     }
 
     public int getWhiteMarker() {
