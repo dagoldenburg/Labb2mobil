@@ -22,7 +22,8 @@ import com.example.micke.labb2mobil.R;
 public class TouchController {
 
 
-    public static void set(Position position,View v,MotionEvent event){
+    public static void set(View v,MotionEvent event){
+        Position position = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions());
         try {
             if (GameState.getGameState().set(position.getPosition())) {
                 Drawable d = null;

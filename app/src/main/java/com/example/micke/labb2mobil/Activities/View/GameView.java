@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
+import com.example.micke.labb2mobil.Activities.Controller.TouchController;
 import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
 import com.example.micke.labb2mobil.Model.GameObjects.Position;
 import com.example.micke.labb2mobil.Model.GameState;
@@ -107,31 +108,7 @@ public class GameView extends View {
             }catch(NullPointerException e){
 
             }
-            Position position = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions());
-            try {
-                if (GameState.getGameState().set(position.getPosition())) {
-                    Drawable d = null;
-                    if (!GameState.getGameState().isWhitePlayersTurn()) {
-                        d = getResources().getDrawable(R.drawable.white_circle);
-                    } else {
-                        d = getResources().getDrawable(R.drawable.black_circle);
-                    }
-                    Rect rect = new Rect((int) position.getX(), (int) position.getY(), (int) (position.getX() + position.getWidth()), (int) (position.getY() + position.getHeight()));
-                    d.setBounds(rect);
-                    PosDrawable pos = new PosDrawable(d, new Position((int) position.getX(), (int) position.getY(), (int) position.getWidth(),
-                            (int) position.getHeight(), position.getPosition()));
-
-                    ViewState.getViewState().getMarkers().add(pos);
-                }else if(GameState.getGameState().areThreeOnRow()) {
-                    Position pos = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getMarkers());
-                    if (GameState.getGameState().remove(pos.getPosition())) {
-                        ViewState.getViewState().getMarkers().remove(ViewState.getViewState().fetchMarker(pos.getPosition()));
-                        invalidate();
-                    }
-                }
-            }catch(NullPointerException e){
-
-            }
+            TouchController.set(this,event);
         }else if (event.getAction() == MotionEvent.ACTION_MOVE && (GameState.getGameState().getBlackMarker()==0 || GameState.getGameState().getWhiteMarker()==0)) {
             try {
                 ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from.getPosition())).updateDrawable((int) event.getX(),(int) event.getY());
@@ -140,21 +117,7 @@ public class GameView extends View {
 
             }
         }else{
-            try{
-                Position to = PosDrawable.seeIfTouch(event.getX(), event.getY(), ViewState.getViewState().getEmptyPositions());
-                if(GameState.getGameState().move(from.getPosition(),to.getPosition())){
-                    ViewState.getViewState().getMarkers().get(ViewState.getViewState().fetchMarker(from.getPosition())).updatePosDrawable(to);
-                }else{
-                    returnAnimation(from.getPosition());
-                }
-            }catch(NullPointerException |ArrayIndexOutOfBoundsException e){
-                try {
-                    returnAnimation(from.getPosition());
-                }catch(IndexOutOfBoundsException|NullPointerException|ClassCastException e1){
-                    from=null;
-                }
-                from=null;
-            }
+            TouchController.move(from,event,this);
         }
         invalidate();
         return true;

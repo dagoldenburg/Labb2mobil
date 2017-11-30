@@ -103,7 +103,7 @@ public class ViewState implements Serializable {
         if(orentation == context.getResources().getConfiguration().ORIENTATION_LANDSCAPE){
             posWidth= w/40;
             posHeight=h/20;
-            topMargin= posHeight;//(h/8 -posHeight)/2;
+            topMargin= posHeight+100;//(h/8 -posHeight)/2;
             leftMargin= posWidth;//(w/14-posWidth)/2;
             for(int i=0;i<7;i++){
                 xpos[i] = (w/14)*i+leftMargin;
@@ -113,7 +113,7 @@ public class ViewState implements Serializable {
         }else  if(orentation== context.getResources().getConfiguration().ORIENTATION_PORTRAIT){
             posWidth = w/20;
             posHeight = h/40;
-            topMargin = posHeight;//(h/16- posHeight)/2;
+            topMargin = posHeight+100;//(h/16- posHeight)/2;
             leftMargin  = posWidth;//(w/7-posWidth)/2;
             for(int i=0;i<7;i++){
                 xpos[i] = (w/7)*i+leftMargin;
