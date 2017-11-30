@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import com.example.micke.labb2mobil.Model.GameObjects.PosDrawable;
 import com.example.micke.labb2mobil.Model.GameObjects.Position;
+import com.example.micke.labb2mobil.Model.GameState;
 import com.example.micke.labb2mobil.R;
 
 import java.io.Serializable;
